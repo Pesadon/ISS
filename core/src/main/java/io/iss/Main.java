@@ -15,6 +15,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Main extends ApplicationAdapter {
     private Stage stage;
     private Skin skin;
@@ -35,6 +39,7 @@ public class Main extends ApplicationAdapter {
         textList.add("Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue");
         textList.add("Third dialogue");
         textList.add("Fourth dialogue");
+        textList.add(Gdx.files.internal("commedy.txt").readString());
 
         // Create the label to display text
         textLabel = new Label(textList.get(currentIndex), skin);
