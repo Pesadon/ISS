@@ -2,47 +2,77 @@ package io.iss;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private Stage stage;
     private Skin skin;
+    private int currentIndex = 0;
+    private Array<String> textList;
+    private Label textLabel;
 
     @Override
     public void create() {
-        stage = new Stage(new FitViewport(640, 480));
+        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 
-        Window window = new Window("Example screen", skin, "border");
-        window.defaults().pad(4f);
-        window.add("This is a simple Scene2D view.").row();
-        final TextButton button = new TextButton("Click me!", skin);
-        button.pad(8f);
+        // list of dialogues - later from json
+        textList = new Array<>();
+        textList.add("First dialogue");
+        textList.add("Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue");
+        textList.add("Third dialogue");
+        textList.add("Fourth dialogue");
+
+        // Create the label to display text
+        textLabel = new Label(textList.get(currentIndex), skin);
+        textLabel.setFontScale(2f);
+        textLabel.setColor(Color.BLACK);
+        textLabel.setWrap(true);
+        textLabel.setAlignment(1);
+
+        // Create the button to navigate through the text
+        TextButton button = new TextButton("Next", skin);
+        button.getLabel().setFontScale(2f);
+        button.pad(10f);
         button.addListener(new ChangeListener() {
             @Override
-            public void changed(final ChangeEvent event, final Actor actor) {
-                button.setText("Clicked.");
+            public void changed(ChangeEvent event, Actor actor) {
+                if (currentIndex < textList.size - 1) {
+                    currentIndex++;
+                    textLabel.setText(textList.get(currentIndex));
+                } else {
+                    textLabel.setText("No more texts!");
+                }
             }
         });
-        window.add(button);
-        window.pack();
-        // We round the window position to avoid awkward half-pixel artifacts.
-        // Casting using (int) would also work.
-        window.setPosition(MathUtils.roundPositive(stage.getWidth() / 2f - window.getWidth() / 2f),
-            MathUtils.roundPositive(stage.getHeight() / 2f - window.getHeight() / 2f));
-        window.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(1f)));
-        stage.addActor(window);
+
+        // Create a table to act as a "text box"
+        Table textBox = new Table();
+        Drawable background = skin.newDrawable("white", Color.valueOf("#FFFACD")); // Pale yellow
+        textBox.setBackground(background);
+
+        textBox.setSize(stage.getWidth() / 1.2f, stage.getHeight() / 4f);
+        textBox.setPosition(stage.getWidth() / 2f - textBox.getWidth() / 2f, 20);
+
+        // Add the label and button to the table
+        textBox.add(textLabel).expand().fill().pad(10f).row();
+        textBox.add(button).pad(10f);
+
+        // Add actors to the stage
+        stage.addActor(textBox);
 
         Gdx.input.setInputProcessor(stage);
     }
