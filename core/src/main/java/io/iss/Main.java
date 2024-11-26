@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -12,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import io.iss.view.GameStage;
 
 public class Main extends ApplicationAdapter {
-    private Stage stage;
+    private GameStage demoStage;
     private Skin skin;
     private int currentIndex = 0;
     private Array<String> textList;
@@ -26,7 +25,8 @@ public class Main extends ApplicationAdapter {
     public void create() {
         Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 
-        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        demoStage = new GameStage();
+
         skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 
         // list of dialogues - later from json
@@ -64,34 +64,34 @@ public class Main extends ApplicationAdapter {
         Drawable background = skin.newDrawable("white", Color.valueOf("#FFFACD")); // Pale yellow
         textBox.setBackground(background);
 
-        textBox.setSize(stage.getWidth() / 1.2f, stage.getHeight() / 4f);
-        textBox.setPosition(stage.getWidth() / 2f - textBox.getWidth() / 2f, 20);
+        textBox.setSize(demoStage.getWidth() / 1.2f, demoStage.getHeight() / 4f);
+        textBox.setPosition(demoStage.getWidth() / 2f - textBox.getWidth() / 2f, 20);
 
         // Add the label and button to the table
         textBox.add(textLabel).expand().fill().pad(10f).row();
         textBox.add(button).pad(10f);
 
         // Add actors to the stage
-        stage.addActor(textBox);
+        demoStage.addActor(textBox);
 
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(demoStage);
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0f, 0f, 0f, 1f);
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        demoStage.act(Gdx.graphics.getDeltaTime()); // Update actor's logic
+        demoStage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
+        demoStage.getViewport().update(width, height);
     }
 
     @Override
     public void dispose() {
-        stage.dispose();
+        demoStage.dispose();
         skin.dispose();
     }
 }
