@@ -35,6 +35,7 @@ public class Main extends ApplicationAdapter {
         textList.add("Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue");
         textList.add("Third dialogue");
         textList.add("Fourth dialogue");
+        textList.add(Gdx.files.internal("comedy.txt").readString());
 
         // Create the label to display text
         textLabel = new Label(textList.get(currentIndex), skin);
