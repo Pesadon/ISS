@@ -39,14 +39,14 @@ public class Main extends ApplicationAdapter {
 
         // Create the label to display text
         textLabel = new Label(textList.get(currentIndex), skin);
-        textLabel.setFontScale(2f);
+        textLabel.setFontScale(3f);
         textLabel.setColor(Color.BLACK);
         textLabel.setWrap(true);
         textLabel.setAlignment(1);
 
         // Create the button to navigate through the text
         TextButton button = new TextButton("Next", skin);
-        button.getLabel().setFontScale(2f);
+        button.getLabel().setFontScale(3f);
         button.pad(10f);
         button.addListener(new ChangeListener() {
             @Override
