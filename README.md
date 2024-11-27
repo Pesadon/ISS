@@ -1,33 +1,97 @@
-# ISS
+**(This is just a concept guys, if you don't like something, feel free to overwrite)**
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+# Rewind Detective: A Time-Bending Mystery Game 
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws a simple GUI on the screen.
+## Overview
 
-## Platforms
+**Rewind Detective** is an engaging story-driven mystery game that combines multiple gameplay elements, including visual novel-style conversations, escape room puzzles, and stealth mechanics. The player controls a detective who discovers the ability to rewind time after his mysterious death. Using this power, he unravels the mystery behind his own demise, his mother’s disappearance, and a sinister government conspiracy.
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+---
 
-## Gradle
+## Game Story
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+The story begins with the protagonist (PC) lying dead at the center of the screen, wondering why he can still think despite being deceased. Using his newfound power to rewind time, he returns to the morning of his death and starts investigating his mother's disappearance at the behest of his sister. 
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+The journey takes the PC from his office to a university, where visual novel-style interactions reveal clues, to escape room-like puzzles in his mother’s office, and finally to a stealth-based infiltration of a government laboratory. The game culminates in the revelation of the PC’s origins and a confrontation with his past.
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+---
+
+## Gameplay Features
+
+### Key Gameplay Sections:
+1. **Prologue**:  
+   - The protagonist reflects on his death and rewinds time.  
+
+2. **The Office**:  
+   - Dialogue tutorial with the PC’s sister, introducing the mystery.  
+
+3. **University Investigation**:  
+   - Visual novel interactions with NPCs to gather clues and access the mother’s office.  
+
+4. **Escape Room Puzzle**:  
+   - Solve enigmas in the mother’s office to uncover the location of a secret lab.  
+
+5. **Laboratory Maze**:  
+   - Stealth gameplay to evade guards and uncover the truth.  
+
+6. **Final Confrontation**:  
+   - Dialogue-driven choices leading to multiple possible endings (good, neutral, bad).
+
+---
+
+## Functional Requirements
+
+### Core Mechanics
+- **Character Control**:  
+   Players will interact with NPCs, make dialogue choices that impact the story, and manage inventory items to progress through the game.
+   
+- **Environmental Interactions**:  
+   A point-and-click mechanic allows players to explore environments, examine objects, solve puzzles, and navigate between areas.
+
+- **Checkpoint System**:  
+   Players can save progress and rewind to specific checkpoints in case of failure or to revisit earlier sections.
+
+---
+
+## Non-Functional Requirements
+
+### Performance
+- Target 60 FPS gameplay (where possible).
+- Response times <1 ms.
+
+### Usability
+- Intuitive menus with accessible, well-placed buttons that adhere to usability and accessibility standards.
+
+### Reliability
+- Stable gameplay without crashes.
+- Ability to recover to the last checkpoint in case of a crash, with logged error messages.
+
+### Scalability
+- Supports various resolutions: 480p, 720p, 1080p, 1440p, and 4K.
+- Adapts to different screen sizes with a 16:9 aspect ratio.
+
+### Maintainability
+- Object-oriented code with clear structure and documentation.
+
+### Extensibility
+- Codebase designed for easy implementation of future features.
+
+### Compatibility
+- Runs on Windows, Linux, and macOS.
+
+---
+
+## Tools and Frameworks
+- **LibGDX**: For game development.
+- **Java**: Primary programming language.
+- **JSON**: For configuration and settings management.
+
+---
+
+## Contributors
+
+- **Adam Risztics**
+- **Daniel Perczel-Szabo**
+- **Diego**
+- **Giuseppe**
+- **Stefano Calabrese**
