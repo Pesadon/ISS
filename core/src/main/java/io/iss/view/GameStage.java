@@ -12,7 +12,7 @@ public class GameStage extends Stage {
         // Background
         Texture backgroundTexture = new Texture("backgrounds/background.jpg");
         Image backgroundImage = new Image(backgroundTexture);
-        //backgroundImage.setFillParent(true);
+        backgroundImage.setFillParent(true); // Make the image fill the stage
         addActor(backgroundImage);
     }
 
