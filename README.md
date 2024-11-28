@@ -56,8 +56,8 @@ The journey takes the PC from his office to a university, where visual novel-sty
 ## Non-Functional Requirements
 
 ### Performance
-- Target 60 FPS gameplay (where possible).
-- Response times <1 ms.
+- Target 60 FPS gameplay.
+- Response times <1 ms (<1???).
 
 ### Usability
 - Intuitive menus with accessible, well-placed buttons that adhere to usability and accessibility standards.
