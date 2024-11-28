@@ -85,7 +85,8 @@ The journey takes the PC from his office to a university, where visual novel-sty
 - **LibGDX**: For game development.
 - **Java**: Primary programming language.
 - **JSON**: For configuration and settings management.
-
+- **JUnit**: Test driven development framework.
+- **Gradle**: Build system.
 ---
 
 ## Contributors
