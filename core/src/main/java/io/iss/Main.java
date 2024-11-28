@@ -10,7 +10,6 @@ import io.iss.controller.StageManager;
 public class Main extends ApplicationAdapter {
     private Skin skin;
     private StageManager stageManager;
-    private StageFactory stageFactory;
 
     @Override
     public void create() {
@@ -19,9 +18,10 @@ public class Main extends ApplicationAdapter {
         stageManager = StageManager.getInstance();
         skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 
-        stageFactory = new StageFactory(skin);
+        StageFactory stageFactory = new StageFactory(skin);
 
         stageManager.addStage("menu", stageFactory.createStage("menu"));
+        stageManager.addStage("intro", stageFactory.createStage("intro"));
         stageManager.addStage("game", stageFactory.createStage("game"));
 
         stageManager.switchStage("menu");

@@ -16,8 +16,8 @@ import io.iss.controller.StageManager;
 
 public class GameStage extends Stage {
     private int currentIndex = 0;
-    private Array<String> textList;
-    private Label textLabel;
+    private final Array<String> textList;
+    private final Label textLabel;
 
     public GameStage(final StageManager stageManager, Skin skin) {
         super(new ScreenViewport());
