@@ -131,6 +131,7 @@ public class MainMenuTable extends Table {
     }
 
     public void dispose() {
+        buttonAtlas.dispose();
         panelTexture.dispose();
     }
 }

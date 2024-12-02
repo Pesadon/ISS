@@ -79,6 +79,6 @@ public class PlayState extends GameState {
 
     @Override
     public void exit() {
-
+        Gdx.input.setInputProcessor(null);
     }
 }

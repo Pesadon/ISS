@@ -60,6 +60,7 @@ public class MenuState extends GameState {
     @Override
     public void exit() {
         stage.clear();
+        stage.dispose();
         menuTable.dispose();
     }
 

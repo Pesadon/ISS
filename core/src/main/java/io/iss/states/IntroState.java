@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import io.iss.factory.StateType;
 import io.iss.screens.GameScreen;
 import io.iss.utils.GameAssetManager;
@@ -50,6 +51,7 @@ public class IntroState extends GameState {
     @Override
     public void exit() {
         stage.clear();
+        stage.dispose();
         Gdx.input.setInputProcessor(null);
     }
 }
