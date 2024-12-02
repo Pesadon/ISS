@@ -3,23 +3,23 @@ package io.iss.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
+import io.iss.characters.CharacterState;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
-import io.iss.factory.StateType;
-import io.iss.screens.GameScreen;
-import io.iss.utils.GameAssetManager;
+import io.iss.characters.Character;
 
 public class PlayState extends GameState {
     private int currentIndex = 0;
     private final Array<String> textList = new Array<>();
     private Label textLabel;
+
+    private Character player;
 
     public PlayState(GameScreen screen) {
         super(screen);
@@ -31,6 +31,12 @@ public class PlayState extends GameState {
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true); // Make the image fill the stage
         stage.addActor(backgroundImage);
+
+        //add player
+        player = new Character("Detective", 0, 0);
+        player.addSprite(CharacterState.IDLE, new TextureRegion(new Texture("assets/characters/player/playerIdle.jpg")));
+        player.setPosition(Gdx.graphics.getWidth() / 2f - player.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - player.getHeight() / 2f);
+        stage.addActor(player);
 
         // list of dialogues - later from json
         textList.add("First dialogue");
