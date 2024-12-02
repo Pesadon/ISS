@@ -1,0 +1,70 @@
+{
+    "characters": {
+        "detective": {
+            "name": "Detective",
+            "poses": {
+                "normal": "img/characters/detective/normal.png",
+                "surprised": "img/characters/detective/surprised.png"
+            }
+        },
+        "sis": {
+            "name": "Sister",
+            "poses": {
+                "normal": "img/characters/sis/normal.png",
+                "waving": "img/characters/sis/waving.png"
+            }
+        }
+    },
+    "backgrounds": {
+        "office": "img/bg/0.jpg",
+        "living_room": "img/bg/1.jpg"
+    },
+    "scenes": {
+        "0": {
+            "background": "office",
+            "characters": ["detective"],
+            "dialogues": {
+                "0": {
+                    "character": "detective",
+                    "pose": "surprised",
+                    "text": "Im dead"
+                },
+                "1": {
+                    "character": "detective",
+                    "pose": "surprised",
+                    "text": "wtf"
+                }
+            }
+        },
+        "1": {
+            "background": "living_room",
+            "characters": ["detective", "sis"],
+            "dialogues": {
+                "0": {
+                    "character": "detective",
+                    "pose": "normal",
+                    "text": "hi sis"
+                },
+                "1": {
+                    "character": "sis",
+                    "pose": "waving",
+                    "text": "hi bro"
+                },
+                "2": {
+                    "character": "detective",
+                    "pose": "normal",
+                    "choices": [
+                        {
+                            "text": "whassup",
+                            "next": 2
+                        },
+                        {
+                            "text": "che cazzo",
+                            "next": 3
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
