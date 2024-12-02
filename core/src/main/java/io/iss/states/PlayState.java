@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
+import io.iss.factory.StateType;
+import io.iss.screens.GameScreen;
+import io.iss.utils.GameAssetManager;
 
 public class PlayState extends GameState {
     private int currentIndex = 0;
@@ -34,7 +37,6 @@ public class PlayState extends GameState {
         textList.add("Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue Second dialogue");
         textList.add("Third dialogue");
         textList.add("Fourth dialogue");
-        textList.add(Gdx.files.internal("comedy.txt").readString());
 
         // Create the label to display text
         textLabel = new Label(textList.get(currentIndex), screen.getGame().getSkin());
@@ -54,7 +56,7 @@ public class PlayState extends GameState {
                 currentIndex++;
                 textLabel.setText(textList.get(currentIndex));
             } else {
-                textLabel.setText("No more texts!");
+                button.setText("Next scene");
             }
             }
         });
