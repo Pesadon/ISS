@@ -1,0 +1,205 @@
+classDiagram
+    %% Core Game Classes
+    class Game {
+        <<libgdx>>
+        +setScreen(screen: Screen)
+        +render()
+        +dispose()
+    }
+
+    class MainGame {
+        -batch: SpriteBatch
+        -assetManager: GameAssetManager
+        +create()
+        +dispose()
+        +getBatch(): SpriteBatch
+    }
+
+    %% Asset Management
+    class GameAssetManager {
+        -instance: GameAssetManager
+        -assetManager: AssetManager
+        +DOOR_TEXTURE: String
+        +GAME_FONT: String
+        -GameAssetManager()
+        +getInstance(): GameAssetManager
+        +loadInitialAssets()
+        +get~T~(fileName: String, type: Class~T~): T
+        +dispose()
+    }
+
+    %% Screen Management
+    class Screen {
+        <<interface>>
+        +render(float)
+        +resize(int, int)
+        +show()
+        +hide()
+        +pause()
+        +resume()
+        +dispose()
+    }
+
+    class GameScreen {
+        -game: MainGame
+        -currentState: GameState
+        -stateFactory: StateFactory
+        +GameScreen(game: MainGame)
+        +setState(state: GameState)
+        +render(float)
+        +resize(int, int)
+        +getStateFactory(): StateFactory
+        +getGame(): MainGame
+    }
+
+    %% State Management
+    class GameState {
+        <<abstract>>
+        #screen: GameScreen
+        #stage: Stage
+        #viewport: Viewport
+        #camera: OrthographicCamera
+        +GameState(screen: GameScreen)
+        +enter()
+        +exit()
+        +update(float)
+        +render(float)
+        #centerCamera()
+    }
+
+    class MenuState {
+        -menuTable: MainMenuTable
+        +enter()
+        +update(float)
+        +exit()
+    }
+
+    class IntroState {
+        -doorTexture: Texture
+        -doorImage: Image
+        +enter()
+        +update(float)
+        +exit()
+        -transitionToPlayState()
+    }
+
+    class PlayState {
+        +enter()
+        +update(float)
+        +exit()
+    }
+
+    %% UI Components
+    class Table {
+        <<libgdx>>
+    }
+
+    class MainMenuTable {
+        -buttonAtlas: TextureAtlas
+        -panelTexture: Texture
+        +BUTTON_PADDING: float
+        +ANIMATION_DURATION: float
+        +MainMenuTable(screen: GameScreen)
+        -createAnimatedButton()
+        -addButtonEffects()
+        -getTitleStyle(): LabelStyle
+        -getButtonStyle(): TextButtonStyle
+    }
+
+    %% UI Generators
+    class ButtonAtlasGenerator {
+        +BUTTON_WIDTH: int
+        +BUTTON_HEIGHT: int
+        +CORNER_RADIUS: int
+        +createButtonAtlas(): TextureAtlas
+        -createButtonTexture()
+        -fillRoundedRect()
+        -isInsideRoundedRect()
+    }
+
+    class PanelGenerator {
+        +createMenuPanel(width: int, height: int): Texture
+    }
+
+    %% Font Management
+    class FontManager {
+        -instance: FontManager
+        -titleFont: BitmapFont
+        -menuFont: BitmapFont
+        -regularFont: BitmapFont
+        +TITLE_SIZE: int
+        +MENU_SIZE: int
+        +REGULAR_SIZE: int
+        -FontManager()
+        +getInstance(): FontManager
+        +getTitleFont(): BitmapFont
+        +getMenuFont(): BitmapFont
+        +createTitleStyle(): LabelStyle
+        +createMenuStyle(): LabelStyle
+        +dispose()
+    }
+
+    %% Command Pattern
+    class MenuCommand {
+        <<interface>>
+        +execute()
+    }
+
+    class NewGameCommand {
+        -screen: GameScreen
+        +NewGameCommand(screen: GameScreen)
+        +execute()
+    }
+
+    class ContinueGameCommand {
+        -screen: GameScreen
+        +ContinueGameCommand(screen: GameScreen)
+        +execute()
+    }
+
+    class ExitCommand {
+        +execute()
+    }
+
+    %% Factory
+    class StateFactory {
+        -screen: GameScreen
+        +createState(type: StateType): GameState
+    }
+
+    class StateType {
+        <<enumeration>>
+        MENU
+        INTRO
+        PLAY
+    }
+
+    %% Relationships
+    Game <|-- MainGame : extends
+    Screen <|.. GameScreen : implements
+    MainGame *-- GameAssetManager : uses
+    MainGame *-- GameScreen : owns
+    GameScreen o-- GameState : manages
+    GameScreen o-- StateFactory : uses
+    GameState <|-- MenuState : extends
+    GameState <|-- IntroState : extends
+    GameState <|-- PlayState : extends
+    Table <|-- MainMenuTable : extends
+    MenuState *-- MainMenuTable : contains
+    MainMenuTable -- ButtonAtlasGenerator : uses
+    MainMenuTable -- PanelGenerator : uses
+    MainMenuTable o-- MenuCommand : uses
+    MenuCommand <|.. NewGameCommand : implements
+    MenuCommand <|.. ContinueGameCommand : implements
+    MenuCommand <|.. ExitCommand : implements
+    StateFactory -- StateType : uses
+    GameState -- FontManager : uses
+    GameState -- GameAssetManager : uses
+    FontManager -- GameAssetManager : uses
+
+    %% Notes
+    note for GameAssetManager "Singleton Pattern"
+    note for FontManager "Singleton Pattern"
+    note for GameState "Template Method Pattern"
+    note for MenuCommand "Command Pattern"
+    note for StateFactory "Factory Pattern"
