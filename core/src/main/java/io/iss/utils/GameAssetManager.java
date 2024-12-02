@@ -10,6 +10,7 @@ public class GameAssetManager {
 
     public static final String MENU_BG_TEXTURE = "images/menu.jpg";
     public static final String DOOR_TEXTURE = "images/door.png";
+    public static final String DANTE_TEXTURE = "images/Dante.jpg";
 
     private GameAssetManager() {
         assetManager = new AssetManager();
@@ -25,6 +26,7 @@ public class GameAssetManager {
     public void loadInitialAssets() {
         assetManager.load(MENU_BG_TEXTURE, Texture.class);
         assetManager.load(DOOR_TEXTURE, Texture.class);
+        assetManager.load(DANTE_TEXTURE, Texture.class);
 
         assetManager.finishLoading();
     }
