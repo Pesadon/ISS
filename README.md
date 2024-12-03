@@ -1,4 +1,4 @@
-**(This is just a concept guys, if you don't like something, feel free to overwrite)**
+**(This is just a concept guys, if you don't like something I don't care)**
 
 # Rewind Detective: A Time-Bending Mystery Game 
 
