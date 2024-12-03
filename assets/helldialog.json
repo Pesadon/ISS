@@ -1,0 +1,59 @@
+{
+    "scenes": {
+        "office_intro": {
+            "map": "maps/office.tmx",
+            "dialogs": [
+                {
+                    "character": "detective",
+                    "text": "Im dead"
+                },
+                {
+                    "character": "detective",
+                    "text": "wtf"
+                }
+            ]
+        },
+        "office_sister": {
+            "map": "maps/office.tmx",
+            "dialogs": [
+                {
+                    "character": "detective",
+                    "text": "hi sis"
+                },
+                {
+                    "character": "sister",
+                    "text": "hi bro"
+                },
+                {
+                    "character": "detective",
+                    "choices": [
+                        {
+                            "text": "whassup",
+                            "next_scene": "office_help"
+                        },
+                        {
+                            "text": "che cazzo",
+                            "next_scene": "office_rude"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "characters": {
+        "detective": {
+            "name": "Detective",
+            "expressions": {
+                "normal": "detective_normal.png",
+                "surprised": "detective_surprised.png"
+            }
+        },
+        "sister": {
+            "name": "Sister",
+            "expressions": {
+                "normal": "sister_normal.png",
+                "waving": "sister_waving.png"
+            }
+        }
+    }
+}

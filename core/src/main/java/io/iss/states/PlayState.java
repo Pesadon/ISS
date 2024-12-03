@@ -13,6 +13,7 @@ import io.iss.characters.CharacterState;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
 import io.iss.characters.Character;
+import io.iss.utils.GameAssetManager;
 
 public class PlayState extends GameState {
     private int currentIndex = 0;
@@ -34,7 +35,7 @@ public class PlayState extends GameState {
 
         //add player
         player = new Character("Detective", 0, 0);
-        player.addSprite(CharacterState.IDLE, new TextureRegion(new Texture("assets/characters/player/playerIdle.jpg")));
+        player.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.PLAYER_IDLE_TEXTURE, Texture.class)));
         player.setPosition(Gdx.graphics.getWidth() / 2f - player.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - player.getHeight() / 2f);
         stage.addActor(player);
 

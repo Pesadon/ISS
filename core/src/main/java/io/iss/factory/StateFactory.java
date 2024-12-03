@@ -1,10 +1,7 @@
 package io.iss.factory;
 
 import io.iss.screens.GameScreen;
-import io.iss.states.GameState;
-import io.iss.states.IntroState;
-import io.iss.states.MenuState;
-import io.iss.states.PlayState;
+import io.iss.states.*;
 
 public class StateFactory {
     private final GameScreen screen;
@@ -18,7 +15,7 @@ public class StateFactory {
             case MENU -> new MenuState(this.screen);
             case INTRO -> new IntroState(this.screen);
             case PLAY -> new PlayState(this.screen);
-            default -> throw new IllegalArgumentException("Unknown screen type: " + type);
+            case HELL_DIALOGUE -> new DialogueTest(this.screen);
         };
     }
 }
