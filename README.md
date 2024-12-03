@@ -1,6 +1,4 @@
-https://code-with-me.global.jetbrains.com/70JcQraqh_CzxrQyE48xfQ#p=IU&fp=68F7874890A1B5228AC1CFDB60ABEB682A2D5E9BEFAD56C95C95242BAB9F3705&newUi=true
-
-**(This is just a concept guys, if you don't like something I don't care)**
+**(This is definitive guys, if you don't like something I don't care)**
 
 # Rewind Detective: A Time-Bending Mystery Game 
 
