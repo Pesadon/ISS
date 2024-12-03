@@ -31,15 +31,18 @@ public class DialogueUI {
     }
 
     private void setupUI(GameScreen screen, Stage stage) {
-        textLabel = new Label("SIAMO ALLA FUFFA", new Label.LabelStyle(FontManager.getInstance().createRegularStyle()));
+        textLabel = new Label("SIAMO ALLA FUFFA", screen.getGame().getSkin());
+        textLabel.setStyle(FontManager.getInstance().createRegularStyle());
+        textLabel.setColor(Color.BLACK);
         textLabel.setWrap(true);
+        textLabel.setAlignment(1);
 
         choiceTable = new Table();
         dialogueTable = new Table();
 
         Drawable background = screen.getGame().getSkin().newDrawable("white", Color.valueOf("#FFFACD")); // Pale yellow
-
         dialogueTable.setBackground(background);
+
         dialogueTable.setSize(stage.getWidth() / 1.2f, stage.getHeight() / 4f);
         dialogueTable.setPosition(stage.getWidth() / 2f - dialogueTable.getWidth() / 2f, 20);
 
