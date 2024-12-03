@@ -24,16 +24,19 @@ public class PlayState extends GameState {
 
     @Override
     public void enter() {
-        Texture backgroundTexture = new Texture("backgrounds/background.jpg");
-        Image backgroundImage = new Image(backgroundTexture);
+        Image backgroundImage = new Image(GameAssetManager.getInstance().get(GameAssetManager.OFFICE_TEXTURE, Texture.class));
         backgroundImage.setFillParent(true); // Make the image fill the stage
 
-        Character player = new Character("Detective", 0, 0);
-        player.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.PLAYER_IDLE_TEXTURE, Texture.class)));
-        player.setPosition(Gdx.graphics.getWidth() / 2f - player.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - player.getHeight() / 2f);
+        Character sister = new Character("Sister", 0, 0);
+        sister.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.SISTER_IDLE_TEXTURE, Texture.class)));
+        sister.setPosition(Gdx.graphics.getWidth() / 2f - sister.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - sister.getHeight() / 2f);
+
+        Character detective = new Character("Detective", 0, 0);
+        detective.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.DETECTIVE_IDLE_TEXTURE, Texture.class)));
 
         stage.addActor(backgroundImage);
-        stage.addActor(player);
+        stage.addActor(sister);
+        stage.addActor(detective);
         stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
 
         dialogueContext.startScene(dialogueLoader.getScene("intro_death"));

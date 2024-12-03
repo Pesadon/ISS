@@ -12,7 +12,9 @@ public class GameAssetManager {
     public static final String MENU_BG_TEXTURE = "images/menu.jpg";
     public static final String DOOR_TEXTURE = "images/door.png";
     public static final String DANTE_TEXTURE = "images/Dante.jpg";
-    public static final String PLAYER_IDLE_TEXTURE = "characters/player/playerIdle.jpg";
+    public static final String SISTER_IDLE_TEXTURE = "characters/player/playerIdle.png";
+    public static final String DETECTIVE_IDLE_TEXTURE = "characters/player/nomeIdle.png";
+    public static final String OFFICE_TEXTURE = "backgrounds/office.jpg";
     public static final String DIALOGUES_JSON = "helldialog.json";
 
     private GameAssetManager() {
@@ -30,7 +32,9 @@ public class GameAssetManager {
         assetManager.load(MENU_BG_TEXTURE, Texture.class);
         assetManager.load(DOOR_TEXTURE, Texture.class);
         assetManager.load(DANTE_TEXTURE, Texture.class);
-        assetManager.load(PLAYER_IDLE_TEXTURE, Texture.class);
+        assetManager.load(SISTER_IDLE_TEXTURE, Texture.class);
+        assetManager.load(DETECTIVE_IDLE_TEXTURE, Texture.class);
+        assetManager.load(OFFICE_TEXTURE, Texture.class);
 
         assetManager.finishLoading();
     }
