@@ -15,7 +15,7 @@ public class GameScreen implements Screen {
         this.game = game;
         this.stateFactory = new StateFactory(this);
 
-        setState(stateFactory.createState(StateType.HELL_DIALOGUE));
+        setState(stateFactory.createState(StateType.MENU));
     }
 
     public void setState(GameState newState) {

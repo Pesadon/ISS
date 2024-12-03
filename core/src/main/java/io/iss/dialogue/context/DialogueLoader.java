@@ -8,72 +8,33 @@ import io.iss.dialogue.model.DialogueEntry;
 import io.iss.dialogue.model.DialogueScene;
 
 public class DialogueLoader {
-    private Json json;
-    private ObjectMap<String, DialogueScene> loadedScenes;
+    private final Json json;
+    private final ObjectMap<String, DialogueScene> loadedScenes;
 
-    public DialogueLoader() {
+    public DialogueLoader(String filePath) {
         json = new Json();
         loadedScenes = new ObjectMap<>();
+
         setupJson();
+        loadDialogues(filePath);
     }
 
     private void setupJson() {
         // Configure Json serializer to handle our custom classes
         json.setSerializer(DialogueEntry.class, new Json.Serializer<DialogueEntry>() {
             @Override
-            public void write(Json json, DialogueEntry entry, Class knownType) {
-                // Implementation for writing if needed
-                json.writeObjectStart();
-                json.writeValue("character", entry.getCharacter());
-                json.writeValue("text", entry.getText());
-                if (entry.hasChoices()) {
-                    json.writeArrayStart("choices");
-                    for (DialogueChoice choice : entry.getChoices()) {
-                        json.writeObjectStart();
-                        json.writeValue("text", choice.getText());
-                        json.writeValue("next_scene", choice.getNextScene());
-                        json.writeObjectEnd();
-                    }
-                    json.writeArrayEnd();
-                }
-                json.writeObjectEnd();
-            }
+            public void write(Json json, DialogueEntry entry, Class knownType) { }
 
             @Override
             public DialogueEntry read(Json json, JsonValue jsonData, Class type) {
-                DialogueEntry entry = new DialogueEntry();
-                entry.setCharacter(jsonData.getString("character"));
-                entry.setText(jsonData.getString("text", ""));
-
-                // Parse choices if present
-                JsonValue choicesJson = jsonData.get("choices");
-                if (choicesJson != null) {
-                    for (JsonValue choiceJson : choicesJson) {
-                        DialogueChoice choice = new DialogueChoice(
-                            choiceJson.getString("text"),
-                            choiceJson.getString("next_scene")
-                        );
-                        entry.getChoices().add(choice);
-                    }
-                }
-
-                return entry;
+                return getDialogueEntry(jsonData);
             }
         });
 
         // Add serializer for DialogueScene if needed
         json.setSerializer(DialogueScene.class, new Json.Serializer<DialogueScene>() {
             @Override
-            public void write(Json json, DialogueScene scene, Class knownType) {
-                json.writeObjectStart();
-                json.writeValue("map", scene.getMapPath());
-                json.writeArrayStart("dialogs");
-                for (DialogueEntry entry : scene.getDialogues()) {
-                    json.writeValue(entry);
-                }
-                json.writeArrayEnd();
-                json.writeObjectEnd();
-            }
+            public void write(Json json, DialogueScene scene, Class knownType) { }
 
             @Override
             public DialogueScene read(Json json, JsonValue jsonData, Class type) {
@@ -90,7 +51,7 @@ public class DialogueLoader {
         });
     }
 
-    public void loadDialogues(String filePath) {
+    private void loadDialogues(String filePath) {
         FileHandle file = Gdx.files.internal(filePath);
         JsonValue root = new JsonReader().parse(file);
 
@@ -106,27 +67,31 @@ public class DialogueLoader {
             JsonValue dialoguesJson = sceneJson.get("dialogs");
 
             for (JsonValue dialogueJson : dialoguesJson) {
-                DialogueEntry entry = new DialogueEntry();
-                entry.setCharacter(dialogueJson.getString("character"));
-                entry.setText(dialogueJson.getString("text", ""));
-
-                // Parse choices if present
-                JsonValue choicesJson = dialogueJson.get("choices");
-                if (choicesJson != null) {
-                    for (JsonValue choiceJson : choicesJson) {
-                        DialogueChoice choice = new DialogueChoice(
-                            choiceJson.getString("text"),
-                            choiceJson.getString("next_scene")
-                        );
-                        entry.getChoices().add(choice);
-                    }
-                }
-
-                entries.add(entry);
+                entries.add(getDialogueEntry(dialogueJson));
             }
 
             loadedScenes.put(sceneId, new DialogueScene(mapPath, entries));
         }
+    }
+
+    private DialogueEntry getDialogueEntry(JsonValue dialogueJson) {
+        DialogueEntry entry = new DialogueEntry();
+        entry.setCharacter(dialogueJson.getString("character"));
+        entry.setText(dialogueJson.getString("text", ""));
+
+        // Parse choices if present
+        JsonValue choicesJson = dialogueJson.get("choices");
+        if (choicesJson != null) {
+            for (JsonValue choiceJson : choicesJson) {
+                DialogueChoice choice = new DialogueChoice(
+                    choiceJson.getString("text"),
+                    choiceJson.getString("next_scene")
+                );
+                entry.getChoices().add(choice);
+            }
+        }
+
+        return entry;
     }
 
     public DialogueScene getScene(String sceneId) {

@@ -1,20 +1,22 @@
 package io.iss.dialogue.context;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.iss.dialogue.model.DialogueEntry;
 import io.iss.dialogue.model.DialogueScene;
 import io.iss.dialogue.ui.DialogueUI;
 import io.iss.dialogue.state.ChoiceDialogueState;
 import io.iss.dialogue.state.DialogueState;
 import io.iss.dialogue.state.NormalDialogueState;
+import io.iss.screens.GameScreen;
 
 public class DialogueContext {
     private DialogueState currentState;
     private DialogueScene currentScene;
-    private DialogueUI dialogueUI;
+    private final DialogueUI dialogueUI;
     private int currentDialogueIndex;
 
-    public DialogueContext(DialogueUI dialogueUI) {
-        this.dialogueUI = dialogueUI;
+    public DialogueContext(GameScreen screen, Stage stage) {
+        this.dialogueUI = new DialogueUI(screen, stage);
     }
 
     public void startScene(DialogueScene scene) {

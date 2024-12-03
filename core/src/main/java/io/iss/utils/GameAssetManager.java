@@ -3,6 +3,7 @@ package io.iss.utils;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import io.iss.dialogue.context.DialogueLoader;
 
 public class GameAssetManager {
     private static GameAssetManager instance;
@@ -12,6 +13,7 @@ public class GameAssetManager {
     public static final String DOOR_TEXTURE = "images/door.png";
     public static final String DANTE_TEXTURE = "images/Dante.jpg";
     public static final String PLAYER_IDLE_TEXTURE = "characters/player/playerIdle.jpg";
+    public static final String DIALOGUES_JSON = "helldialog.json";
 
     private GameAssetManager() {
         assetManager = new AssetManager();

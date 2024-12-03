@@ -1,55 +1,42 @@
 package io.iss.dialogue.ui;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.model.DialogueChoice;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
 
 public class DialogueUI {
-    private Stage stage;
-    private Table dialogueTable;
-    private Label textLabel;
-    private Table choiceTable;
-    private DialogueContext context;
+    private final Label textLabel;
+    private final Table choiceTable;
+    private final Table dialogueTable;
 
     public DialogueUI(GameScreen screen, Stage stage) {
-        this.stage = stage;
-        setupUI(screen, stage);
-    }
+        dialogueTable = new Table();
+        choiceTable = new Table();
+        textLabel = new Label("", screen.getGame().getSkin());
 
-    private void setupUI(GameScreen screen, Stage stage) {
-        textLabel = new Label("SIAMO ALLA FUFFA", screen.getGame().getSkin());
         textLabel.setStyle(FontManager.getInstance().createRegularStyle());
         textLabel.setColor(Color.BLACK);
         textLabel.setWrap(true);
         textLabel.setAlignment(1);
 
-        choiceTable = new Table();
-        dialogueTable = new Table();
-
-        Drawable background = screen.getGame().getSkin().newDrawable("white", Color.valueOf("#FFFACD")); // Pale yellow
-        dialogueTable.setBackground(background);
-
+        dialogueTable.setBackground(screen.getGame().getSkin().newDrawable("white", Color.valueOf("#FFFACD")));
         dialogueTable.setSize(stage.getWidth() / 1.2f, stage.getHeight() / 4f);
         dialogueTable.setPosition(stage.getWidth() / 2f - dialogueTable.getWidth() / 2f, 20);
-
         dialogueTable.add(textLabel).width(600).pad(20);
         dialogueTable.add(choiceTable).row();
+    }
 
-        stage.addActor(dialogueTable);
+    public Table getDialogueBox() {
+        return dialogueTable;
     }
 
     public void showCharacter(String character) {

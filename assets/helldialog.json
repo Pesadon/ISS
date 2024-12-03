@@ -1,59 +1,360 @@
 {
-    "scenes": {
-        "office_intro": {
-            "map": "maps/office.tmx",
-            "dialogs": [
-                {
-                    "character": "detective",
-                    "text": "Im dead"
-                },
-                {
-                    "character": "detective",
-                    "text": "wtf"
-                }
-            ]
+  "scenes": {
+    "intro_death": {
+      "map": "maps/dark_room.tmx",
+      "dialogs": [
+        {
+          "character": "detective",
+          "text": "..."
         },
-        "office_sister": {
-            "map": "maps/office.tmx",
-            "dialogs": [
-                {
-                    "character": "detective",
-                    "text": "hi sis"
-                },
-                {
-                    "character": "sister",
-                    "text": "hi bro"
-                },
-                {
-                    "character": "detective",
-                    "choices": [
-                        {
-                            "text": "whassup",
-                            "next_scene": "office_help"
-                        },
-                        {
-                            "text": "che cazzo",
-                            "next_scene": "office_rude"
-                        }
-                    ]
-                }
-            ]
+        {
+          "character": "detective",
+          "text": "Must've been unconscious for a while..."
+        },
+        {
+          "character": "detective",
+          "text": "Damn, I feel my head spinning and I don't feel my limbs..."
+        },
+        {
+          "character": "detective",
+          "text": "Well... that is to be expected since..."
+        },
+        {
+          "character": "detective",
+          "text": "I'M DEAD",
+          "style": "red"
+        },
+        {
+          "character": "detective",
+          "text": "I don't really remember how I died in the first place"
+        },
+        {
+          "character": "detective",
+          "text": "Judging from the blood and the positioning of my body..."
+        },
+        {
+          "character": "detective",
+          "text": "(and the obvious hole in my head)"
+        },
+        {
+          "character": "detective",
+          "text": "I would say that someone shot me"
+        },
+        {
+          "character": "detective",
+          "text": "Wait a minute, how am I able to watch my dead body if I am already dead?"
+        },
+        {
+          "character": "detective",
+          "text": "Well, to be honest, it's the first time I die, so I don't really know what I should be able to feel and not feel"
+        },
+        {
+          "character": "detective",
+          "text": "Maybe it's normal for dead people to be able to watch themselves"
+        },
+        {
+          "character": "detective",
+          "text": "..."
+        },
+        {
+          "character": "detective",
+          "text": "Kinda boring to be honest"
+        },
+        {
+          "character": "detective",
+          "text": "..."
+        },
+        {
+          "character": "detective",
+          "text": "I feel like the more I watch that hole, the more pain I feel"
+        },
+        {
+          "character": "detective",
+          "text": "Which is funny, I shouldn't be able to feel pain at this point"
+        },
+        {
+          "character": "detective",
+          "text": "But then again, I have a lot to learn about being dead"
+        },
+        {
+          "character": "detective",
+          "text": "..."
+        },
+        {
+          "character": "detective",
+          "text": "Speaking of which, I would really like to know how I died, maybe the hole in my brain deleted that information"
+        },
+        {
+          "character": "detective",
+          "text": "..."
+        },
+        {
+          "character": "detective",
+          "text": "Since I've got nothing else to do, I can try to remember how I got here in the first place."
+        },
+        {
+          "character": "detective",
+          "text": "I remember that my name was NAME, I was 32 years old and I was a detective…"
+        },
+        {
+          "character": "detective",
+          "text": "I think I was investigating a case which was given to me this morning and…"
+        },
+        {
+          "character": "detective",
+          "text": "Wait…"
+        },
+        {
+          "character": "detective",
+          "text": "Is it normal that I feel a strange pull on my stomach?"
+        },
+        {
+          "character": "detective",
+          "text": "Is it normal that I feel my stomach?"
+        },
+        {
+          "character": "detective",
+          "text": "Is this the famous afterlife? I don't know If I'm ready, I don't even know what I should expect"
+        },
+        {
+          "character": "detective",
+          "text": "Damn, I wish I had more…"
+        },
+        {
+          "character": "detective",
+          "text": "...Time…"
         }
+      ]
     },
-    "characters": {
-        "detective": {
-            "name": "Detective",
-            "expressions": {
-                "normal": "detective_normal.png",
-                "surprised": "detective_surprised.png"
-            }
+    "office_scene": {
+      "map": "maps/office.tmx",
+      "dialogs": [
+        {
+          "character": "sister",
+          "text": "NAME... NAME"
         },
-        "sister": {
-            "name": "Sister",
-            "expressions": {
-                "normal": "sister_normal.png",
-                "waving": "sister_waving.png"
-            }
+        {
+          "character": "detective",
+          "text": "what... what just happened?",
+          "type": "thought"
+        },
+        {
+          "character": "sister",
+          "text": "NAME!"
+        },
+        {
+          "character": "detective",
+          "text": "I was dead a minute ago, and now...",
+          "type": "thought"
+        },
+        {
+          "character": "sister",
+          "text": "NAME ARE YOU LISTENING?"
+        },
+        {
+          "character": "detective",
+          "text": "Yeah, I am, no need to break my ears"
+        },
+        {
+          "character": "detective",
+          "text": "This is my sister SISTER NAME, I kind of remember she was the one that gave me the case but… damn I can't seem to remember much else",
+          "type": "thought"
+        },
+        {
+          "character": "sister",
+          "text": "Doesn't seem like that. Can you stop zoning out and listen to me for a second? It's serious, I swear"
+        },
+        {
+          "character": "detective",
+          "text": "Maybe it was all just a lucid dream, I should hear her… before she decide to break more than my eardrums",
+          "type": "thought"
+        },
+        {
+          "character": "detective",
+          "text": "I can interact with people and object by clicking on them, I should do it on Sis to check what she want",
+          "type": "thought"
         }
+      ],
+      "interactive_objects": {
+        "paper": {
+          "text": "That's a newspaper article talking about our city University. My mother works there, I should probably visit sometime",
+          "interrupt_dialog": {
+            "character": "sister",
+            "text": "EHY WOULD YOU STOP IGNORING ME?"
+          }
+        },
+        "notebook": {
+          "text": "My investigation notebook, it contain every notes I take during-",
+          "interrupt_dialog": {
+            "character": "sister",
+            "text": "EHY WOULD YOU STOP IGNORING ME?"
+          }
+        },
+        "case": {
+          "text": "My equipment, it contains every useful thing I can find during my investigat-",
+          "interrupt_dialog": {
+            "character": "sister",
+            "text": "EHY WOULD YOU STOP IGNORING ME?"
+          }
+        },
+        "library": {
+          "text": "Waiting for cases might be boring from time to time, fortunately, I love the company of a good book, wait, is that-",
+          "interrupt_dialog": {
+            "character": "sister",
+            "text": "EHY WOULD YOU STOP IGNORING ME?"
+          }
+        }
+      },
+      "continue_dialogs": [
+        {
+          "character": "sister",
+          "text": "It's mom…she's been missing for days"
+        },
+        {
+          "character": "detective",
+          "text": "And? You know how she is, she is probably researching non stop like she used to when we were little. She is probably fine in her office in the university"
+        },
+        {
+          "character": "detective",
+          "text": "she looks distressed; something isn't quite right",
+          "type": "thought"
+        },
+        {
+          "character": "sister",
+          "text": "This time is different… She doesn't respond to the phone…"
+        },
+        {
+          "character": "detective",
+          "text": "That's normal for her, she's done that many times"
+        },
+        {
+          "character": "detective",
+          "text": "Come on, stop beating around the bush… And why do I have the impression that we have already been through this?",
+          "type": "thought"
+        },
+        {
+          "character": "detective",
+          "choices": [
+            {
+              "text": "I think we should give her time, she's a busy woman after all",
+              "next_scene": "office_response1"
+            },
+            {
+              "text": "I'm gonna do it when I have time. I can't promise you anything.",
+              "next_scene": "office_response2"
+            },
+            {
+              "text": "I'll start from her university, maybe there is something useful in her office",
+              "next_scene": "office_response3"
+            }
+          ]
+        }
+      ]
+    },
+    "office_response1": {
+      "map": "maps/office.tmx",
+      "dialogs": [
+        {
+          "character": "sister",
+          "text": "Are you for real? I am telling you our mom has been missing for days and no one knows where she is. How can you be so calm?"
+        },
+        {
+          "character": "detective",
+          "text": "She is right, something doesn't add up, maybe i should take the case",
+          "type": "thought"
+        }
+      ]
+    },
+    "office_response2": {
+      "map": "maps/office.tmx",
+      "dialogs": [
+        {
+          "character": "sister",
+          "text": "So that is how important mom is to you? You're an asshole."
+        },
+        {
+          "character": "sister",
+          "text": "And what is it that you are so busy with? Any case more pressing than your missing mother?"
+        },
+        {
+          "character": "detective",
+          "text": "It's not like I have so many cases these days; And it seems that accepting is my only way out of this situation",
+          "type": "thought"
+        }
+      ]
+    },
+    "office_response3": {
+      "map": "maps/office.tmx",
+      "dialogs": [
+        {
+          "character": "sister",
+          "text": "..."
+        },
+        {
+          "character": "detective",
+          "text": "That's odd, I feel a sort of déja vu of me going to her university",
+          "type": "thought"
+        },
+        {
+          "character": "sister",
+          "text": "That would make sense, but how are you going to get there? You think that just going and telling the keeper to hand you the key to her office just because you're her son is going to work?"
+        },
+        {
+          "character": "detective",
+          "text": "You're underestimating me, you know I always have a way with people"
+        },
+        {
+          "character": "sister",
+          "text": "There it is, that smirking bastard I know; now that I hear you bragging I kinda feel more at ease"
+        },
+        {
+          "character": "detective",
+          "text": "I know, I know, You cannot get enough of me. Now, let me just grab my things"
+        },
+        {
+          "character": "sister",
+          "text": "Do you need a ride to the train station?"
+        },
+        {
+          "character": "detective",
+          "text": "Yeah, I…"
+        },
+        {
+          "character": "detective",
+          "text": "...!",
+          "type": "thought"
+        },
+        {
+          "character": "detective",
+          "text": "..."
+        },
+        {
+          "character": "detective",
+          "text": "Another dèja vu… This time for something I haven't even done already",
+          "type": "thought"
+        },
+        {
+          "character": "detective",
+          "text": "The train will take too long"
+        },
+        {
+          "character": "sister",
+          "text": "What?"
+        },
+        {
+          "character": "detective",
+          "text": "I mean… I think I'm gonna use my car, no train ride needed"
+        },
+        {
+          "character": "sister",
+          "text": "Oh, okay… where did you put your keys?"
+        },
+        {
+          "character": "detective",
+          "text": "Yeah, right, I must've put them somewhere in there. I should probably check my desk",
+          "type": "thought"
+        }
+      ]
     }
+  }
 }

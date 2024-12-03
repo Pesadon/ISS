@@ -5,16 +5,18 @@ import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.model.DialogueEntry;
 
 public class NormalDialogueState implements DialogueState {
-    private DialogueContext context;
-    private DialogueEntry currentDialogue;
+    private final DialogueContext context;
+    private final DialogueEntry currentDialogue;
     private float textDisplayTimer;
     private boolean isComplete;
+    private boolean wasMousePressed;
 
     public NormalDialogueState(DialogueContext context, DialogueEntry dialogue) {
         this.context = context;
         this.currentDialogue = dialogue;
         this.textDisplayTimer = 0;
         this.isComplete = false;
+        this.wasMousePressed = false;
     }
 
     @Override
@@ -25,20 +27,20 @@ public class NormalDialogueState implements DialogueState {
 
     @Override
     public void processInput() {
-        if (Gdx.input.justTouched()) {
-            if (isComplete && context.hasNextDialogue()) {
+        boolean isMousePressed = Gdx.input.isTouched();
+
+        if (!isMousePressed && wasMousePressed) {
+            if (context.hasNextDialogue()) {
                 context.advance();
-            } else {
-                // Skip text animation if still displaying
-                context.getDialogueUI().completeTextDisplay();
-                isComplete = true;
             }
         }
+
+        wasMousePressed = isMousePressed;
     }
 
     @Override
     public void update(float delta) {
-        textDisplayTimer += delta;
+
     }
 
     @Override
