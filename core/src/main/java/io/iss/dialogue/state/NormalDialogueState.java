@@ -32,6 +32,8 @@ public class NormalDialogueState implements DialogueState {
         if (!isMousePressed && wasMousePressed) {
             if (context.hasNextDialogue()) {
                 context.advance();
+            } else {
+                context.getDialogueUI().getDialogueBox().setVisible(false);
             }
         }
 
