@@ -18,7 +18,7 @@ public class PlayState extends GameState {
     public PlayState(GameScreen screen) {
         super(screen);
 
-        dialogueLoader = new DialogueLoader("helldialog.json");
+        dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
     }
 

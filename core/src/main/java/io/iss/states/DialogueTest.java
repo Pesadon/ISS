@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
 import io.iss.screens.GameScreen;
+import io.iss.utils.GameAssetManager;
 
 public class DialogueTest extends GameState {
     private final DialogueContext dialogueContext;
@@ -12,7 +13,7 @@ public class DialogueTest extends GameState {
     public DialogueTest(GameScreen screen) {
         super(screen);
 
-        dialogueLoader = new DialogueLoader("helldialog.json");
+        dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
     }
 

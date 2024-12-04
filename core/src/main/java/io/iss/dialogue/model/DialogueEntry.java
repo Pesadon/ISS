@@ -2,8 +2,6 @@ package io.iss.dialogue.model;
 
 import com.badlogic.gdx.utils.Array;
 
-import java.util.List;
-
 public class DialogueEntry {
     private String character;
     private String text;
