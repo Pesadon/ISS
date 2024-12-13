@@ -2,8 +2,6 @@ package io.iss.utils;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import io.iss.dialogue.context.DialogueLoader;
 
 public class GameAssetManager {
     private static GameAssetManager instance;
@@ -12,6 +10,8 @@ public class GameAssetManager {
     public static final String MENU_BG_TEXTURE = "images/menu.jpg";
     public static final String DOOR_TEXTURE = "images/door.png";
     public static final String DANTE_TEXTURE = "images/Dante.jpg";
+    public static final String KEY_TEXTURE = "images/key.png";
+    public static final String SLOT_TEXTURE = "images/slot.png";
     public static final String SISTER_IDLE_TEXTURE = "characters/player/playerIdle.png";
     public static final String DETECTIVE_IDLE_TEXTURE = "characters/player/nomeIdle.png";
     public static final String OFFICE_TEXTURE = "backgrounds/office.jpg";
@@ -35,6 +35,10 @@ public class GameAssetManager {
         assetManager.load(SISTER_IDLE_TEXTURE, Texture.class);
         assetManager.load(DETECTIVE_IDLE_TEXTURE, Texture.class);
         assetManager.load(OFFICE_TEXTURE, Texture.class);
+
+        assetManager.load(KEY_TEXTURE, Texture.class);
+        assetManager.load(SLOT_TEXTURE, Texture.class);
+
 
         assetManager.finishLoading();
     }

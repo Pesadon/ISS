@@ -16,6 +16,7 @@ public class StateFactory {
             case INTRO -> new IntroState(this.screen);
             case PLAY -> new PlayState(this.screen);
             case HELL_DIALOGUE -> new DialogueTest(this.screen);
+            case PICKABLE -> new PickableState(this.screen);
         };
     }
 }

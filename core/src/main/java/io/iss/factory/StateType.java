@@ -4,5 +4,6 @@ public enum StateType {
     MENU,
     INTRO,
     PLAY,
-    HELL_DIALOGUE
+    HELL_DIALOGUE,
+    PICKABLE
 }
