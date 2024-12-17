@@ -3,23 +3,28 @@ package io.iss.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.iss.characters.CharacterState;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
 import io.iss.screens.GameScreen;
 import io.iss.characters.Character;
+import io.iss.ui.PauseMenu;
 import io.iss.utils.GameAssetManager;
 
 public class PlayState extends GameState {
     private final DialogueContext dialogueContext;
     private final DialogueLoader dialogueLoader;
+    private PauseMenu pauseMenu;
 
     public PlayState(GameScreen screen) {
         super(screen);
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
+        pauseMenu = new PauseMenu(screen, stage, dialogueContext);
     }
 
     @Override
@@ -40,7 +45,23 @@ public class PlayState extends GameState {
         stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
 
         dialogueContext.startScene(dialogueLoader.getScene("intro_death"));
-        // Gdx.input.setInputProcessor(stage);
+
+        initPauseButton();
+
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    public void initPauseButton() {
+        Skin skin = screen.getGame().getSkin();
+        TextButton pauseButton = new TextButton("Pause", skin);
+        pauseButton.setPosition(50, 50); // Position the button (you can adjust this as needed)
+        pauseButton.addListener(new ClickListener() { // Use ClickListener for the button
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pauseMenu.showPauseMenu(); // Show the pause menu when the button is clicked
+            }
+        });
+        stage.addActor(pauseButton);
     }
 
     @Override
