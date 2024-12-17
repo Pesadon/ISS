@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.iss.characters.CharacterState;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
@@ -17,7 +18,7 @@ import io.iss.utils.GameAssetManager;
 public class PlayState extends GameState {
     private final DialogueContext dialogueContext;
     private final DialogueLoader dialogueLoader;
-    private PauseMenu pauseMenu;
+    private final PauseMenu pauseMenu;
 
     public PlayState(GameScreen screen) {
         super(screen);
@@ -52,17 +53,35 @@ public class PlayState extends GameState {
     }
 
     public void initPauseButton() {
-        Skin skin = screen.getGame().getSkin();
-        TextButton pauseButton = new TextButton("Pause", skin);
-        pauseButton.setPosition(50, 50); // Position the button (you can adjust this as needed)
-        pauseButton.addListener(new ClickListener() { // Use ClickListener for the button
+        // Load the image for the button (you can replace "pauseImage" with your image name)
+        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
+        buttonStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("assets/ui/pausebutton.png")));
+        buttonStyle.down = buttonStyle.up; // Optionally, add a "pressed" state image if needed
+
+        // Create the image button with the style
+        ImageButton pauseButton = new ImageButton(buttonStyle);
+
+        // Make the button square (adjust the size to your liking)
+        float buttonSize = 80f; // Set the size of the button
+        pauseButton.setSize(buttonSize, buttonSize);
+
+        // Position the button in the top-left corner
+        float buttonPadding = 20f; // Padding from the edges
+        pauseButton.setPosition(buttonPadding, Gdx.graphics.getHeight() - pauseButton.getHeight() - buttonPadding);
+
+        // Add the listener to handle the button click
+        pauseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 pauseMenu.showPauseMenu(); // Show the pause menu when the button is clicked
             }
         });
+
+        // Add the button to the stage
         stage.addActor(pauseButton);
     }
+
+
 
     @Override
     public void update(float delta) {

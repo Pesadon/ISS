@@ -9,26 +9,28 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.screens.GameScreen;
+import io.iss.utils.FontManager;
 
 public class PauseMenu {
-    private TextButton resumeButton;
-    private TextButton quitButton;
     private Table pauseMenuTable;
     private DialogueContext dialogueContext;
     private Stage stage;
     private GameScreen screen;
+    private Buttons buttons;
 
     public PauseMenu(GameScreen screen, Stage stage, DialogueContext dialogueContext) {
-        this.screen=screen;
-        this.stage=stage;
-        this.dialogueContext=dialogueContext;
+        this.screen = screen;
+        this.stage = stage;
+        this.dialogueContext = dialogueContext;
+        this.buttons = new Buttons();
     }
 
     public void showPauseMenu() {
@@ -55,33 +57,23 @@ public class PauseMenu {
 
         // Set background color
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(new Color(0, 0, 0, 0.9f)); // Semi-transparent black
+        pixmap.setColor(new Color(0, 0, 0, 0.7f)); // Semi-transparent black
         pixmap.fill();
         TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
         pixmap.dispose();
         pauseMenuTable.setBackground(backgroundDrawable);
 
-        // Create buttons
-        resumeButton = new TextButton("Resume", skin);
-        resumeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                resumeGame(); // Resume the game when clicked
-            }
-        });
 
-        quitButton = new TextButton("Quit", skin);
-        quitButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit(); // Quit the game when clicked
-            }
-        });
+        Label titleLabel = new Label("Pause Menu", FontManager.getInstance().createTitleStyle());
+        titleLabel.addAction(Actions.sequence(
+            Actions.alpha(0),
+            Actions.fadeIn(0.3f)
+        ));
+        pauseMenuTable.add(titleLabel).padBottom(80).row();
 
-        // Add buttons to the table
-        pauseMenuTable.add(resumeButton).fillX().pad(10).center();
-        pauseMenuTable.row().pad(10);
-        pauseMenuTable.add(quitButton).fillX().pad(10).center();
+
+        buttons.createAnimatedButton(pauseMenuTable, "Resume", this::resumeGame);
+        buttons.createAnimatedButton(pauseMenuTable, "Quit", Gdx.app::exit);
 
         // Add the pause menu to the stage
         stage.addActor(pauseMenuTable);
