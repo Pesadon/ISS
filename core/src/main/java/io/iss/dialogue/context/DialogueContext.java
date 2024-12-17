@@ -17,6 +17,8 @@ public class DialogueContext {
     private int currentDialogueIndex;
     private EndDialogueOperation endDialogueOperation;
 
+    private boolean isResume;
+
     public DialogueContext(GameScreen screen, Stage stage) {
         this.dialogueUI = new DialogueUI(screen, stage);
         endDialogueOperation = null;
@@ -25,6 +27,7 @@ public class DialogueContext {
     public void startScene(DialogueScene scene) {
         this.currentScene = scene;
         currentDialogueIndex = 0;
+        isResume = true;
         setInitialState();
     }
 
@@ -66,6 +69,14 @@ public class DialogueContext {
         }
     }
 
+    public void pause() {
+        isResume = false;
+    }
+
+    public void resume() {
+        isResume = true;
+    }
+
     public void setState(DialogueState newState) {
         if (currentState != null) {
             currentState.exit();
@@ -79,7 +90,7 @@ public class DialogueContext {
     }
 
     public void update(float delta) {
-        if (currentState != null) {
+        if (currentState != null && isResume) {
             currentState.processInput();
             currentState.update(delta);
         }

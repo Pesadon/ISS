@@ -12,10 +12,10 @@ public class StateFactory {
 
     public GameState createState(StateType type) {
         return switch (type) {
-            case MENU -> new MenuState(this.screen);
-            case INTRO -> new IntroState(this.screen);
-            case PLAY -> new PlayState(this.screen);
-            case HELL_DIALOGUE -> new DialogueTest(this.screen);
+            case MENU -> new MenuState(screen);
+            case INTRO -> new IntroState(screen);
+            case PLAY -> new PlayState(screen);
+            case HELL_DIALOGUE -> new DialogueTest(screen);
         };
     }
 }
