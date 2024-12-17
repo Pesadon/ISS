@@ -2,14 +2,14 @@ package io.iss.utils;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import io.iss.dialogue.context.DialogueLoader;
 
 public class GameAssetManager {
     private static GameAssetManager instance;
     private final AssetManager assetManager;
 
     public static final String MENU_BG_TEXTURE = "images/menu.jpg";
+    public static final String DEAD_DETECTIVE_BG = "backgrounds/dead_detective.png";
+    public static final String NO_DEAD_DETECTIVE_BG = "backgrounds/no_dead_detective.png";
     public static final String DOOR_TEXTURE = "images/door.png";
     public static final String DANTE_TEXTURE = "images/Dante.jpg";
     public static final String SISTER_IDLE_TEXTURE = "characters/player/playerIdle.png";
@@ -35,6 +35,8 @@ public class GameAssetManager {
         assetManager.load(SISTER_IDLE_TEXTURE, Texture.class);
         assetManager.load(DETECTIVE_IDLE_TEXTURE, Texture.class);
         assetManager.load(OFFICE_TEXTURE, Texture.class);
+        assetManager.load(NO_DEAD_DETECTIVE_BG, Texture.class);
+        assetManager.load(DEAD_DETECTIVE_BG, Texture.class);
 
         assetManager.finishLoading();
     }

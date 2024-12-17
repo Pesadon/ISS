@@ -44,7 +44,7 @@ public class IntroState extends GameState {
             @Override
             public void clicked(InputEvent event, float x, float y) {
             // When the door is clicked, we'll transition to the play state
-            screen.setState(screen.getStateFactory().createState(StateType.PLAY));
+            screen.setState(screen.getStateFactory().createState(StateType.MENU));
             }
         });
 

@@ -1,6 +1,6 @@
 {
   "scenes": {
-    "intro_death": {
+    "intro_no_death": {
       "map": "maps/dark_room.tmx",
       "dialogs": [
         {
@@ -18,7 +18,12 @@
         {
           "character": "detective",
           "text": "Well... that is to be expected since..."
-        },
+        }
+      ]
+    },
+    "intro_death": {
+      "map": "maps/dark_room.tmx",
+      "dialogs": [
         {
           "character": "detective",
           "text": "I'M DEAD",

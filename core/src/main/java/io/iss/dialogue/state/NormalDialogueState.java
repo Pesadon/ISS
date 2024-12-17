@@ -22,6 +22,7 @@ public class NormalDialogueState implements DialogueState {
     @Override
     public void enter() {
         context.getDialogueUI().showCharacter(currentDialogue.getCharacter());
+        context.getDialogueUI().getDialogueBox().setVisible(true);
         context.getDialogueUI().startDisplayingText(currentDialogue.getText());
     }
 
@@ -34,6 +35,7 @@ public class NormalDialogueState implements DialogueState {
                 context.advance();
             } else {
                 context.getDialogueUI().getDialogueBox().setVisible(false);
+                context.endScene();
             }
         }
 

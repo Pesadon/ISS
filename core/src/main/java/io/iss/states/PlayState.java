@@ -2,13 +2,11 @@ package io.iss.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import io.iss.characters.CharacterState;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
+import io.iss.factory.StateType;
 import io.iss.screens.GameScreen;
-import io.iss.characters.Character;
 import io.iss.utils.GameAssetManager;
 
 public class PlayState extends GameState {
@@ -24,22 +22,27 @@ public class PlayState extends GameState {
 
     @Override
     public void enter() {
-        Image backgroundImage = new Image(GameAssetManager.getInstance().get(GameAssetManager.OFFICE_TEXTURE, Texture.class));
+        Image backgroundImage = new Image(GameAssetManager.getInstance().get(GameAssetManager.NO_DEAD_DETECTIVE_BG, Texture.class));
         backgroundImage.setFillParent(true); // Make the image fill the stage
 
-        Character sister = new Character("Sister", 0, 0);
-        sister.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.SISTER_IDLE_TEXTURE, Texture.class)));
-        sister.setPosition(Gdx.graphics.getWidth() / 2f - sister.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - sister.getHeight() / 2f);
+        //Character sister = new Character("Sister", 0, 0);
+        //sister.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.SISTER_IDLE_TEXTURE, Texture.class)));
+        //sister.setPosition(Gdx.graphics.getWidth() / 2f - sister.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - sister.getHeight() / 2f);
 
-        Character detective = new Character("Detective", 0, 0);
-        detective.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.DETECTIVE_IDLE_TEXTURE, Texture.class)));
+        //Character detective = new Character("Detective", 0, 0);
+        //detective.addSprite(CharacterState.IDLE, new TextureRegion(GameAssetManager.getInstance().get(GameAssetManager.DETECTIVE_IDLE_TEXTURE, Texture.class)));
 
         stage.addActor(backgroundImage);
-        stage.addActor(sister);
-        stage.addActor(detective);
+        //stage.addActor(sister);
+        //stage.addActor(detective);
         stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
 
-        dialogueContext.startScene(dialogueLoader.getScene("intro_death"));
+        dialogueContext.startScene(dialogueLoader.getScene("intro_no_death"), () -> {
+            stage.getActors().set(0, new Image(GameAssetManager.getInstance().get(GameAssetManager.DEAD_DETECTIVE_BG, Texture.class)));
+            dialogueContext.startScene(dialogueLoader.getScene("intro_death"), () -> {
+                screen.setState(screen.getStateFactory().createState(StateType.INTRO));
+            });
+        });
         // Gdx.input.setInputProcessor(stage);
     }
 

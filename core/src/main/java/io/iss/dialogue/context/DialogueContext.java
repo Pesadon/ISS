@@ -1,6 +1,7 @@
 package io.iss.dialogue.context;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import io.iss.dialogue.EndDialogueOperation;
 import io.iss.dialogue.model.DialogueEntry;
 import io.iss.dialogue.model.DialogueScene;
 import io.iss.dialogue.ui.DialogueUI;
@@ -14,15 +15,30 @@ public class DialogueContext {
     private DialogueScene currentScene;
     private final DialogueUI dialogueUI;
     private int currentDialogueIndex;
+    private EndDialogueOperation endDialogueOperation;
 
     public DialogueContext(GameScreen screen, Stage stage) {
         this.dialogueUI = new DialogueUI(screen, stage);
+        endDialogueOperation = null;
     }
 
     public void startScene(DialogueScene scene) {
         this.currentScene = scene;
         currentDialogueIndex = 0;
         setInitialState();
+    }
+
+    public void startScene(DialogueScene scene, EndDialogueOperation operation) {
+        this.currentScene = scene;
+        currentDialogueIndex = 0;
+        setInitialState();
+        endDialogueOperation = operation;
+    }
+
+    public void endScene() {
+        if(endDialogueOperation != null){
+            endDialogueOperation.execute();
+        }
     }
 
     private void setInitialState() {
