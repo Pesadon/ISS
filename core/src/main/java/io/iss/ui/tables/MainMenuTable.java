@@ -39,7 +39,7 @@ public class MainMenuTable extends Table {
 
 
         // Add title
-        Label titleLabel = new Label("[NAME OF THE GAME]", FontManager.getInstance().createTitleStyle());
+        Label titleLabel = new Label("Memento Paradox", FontManager.getInstance().createTitleStyle());
         titleLabel.addAction(Actions.sequence(
             Actions.alpha(0),
             Actions.fadeIn(ANIMATION_DURATION)
