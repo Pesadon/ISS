@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import io.iss.commands.MainMenuCommand;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
@@ -72,7 +73,8 @@ public class PauseMenu {
 
 
         buttons.createAnimatedButton(pauseMenuTable, "Resume", this::resumeGame);
-        buttons.createAnimatedButton(pauseMenuTable, "Quit", Gdx.app::exit);
+        buttons.createAnimatedButton(pauseMenuTable, "Main menu", new MainMenuCommand(screen));
+        buttons.createAnimatedButton(pauseMenuTable, "Exit", Gdx.app::exit);
 
         // Add the pause menu to the stage
         stage.addActor(pauseMenuTable);
@@ -97,5 +99,9 @@ public class PauseMenu {
 
         // Re-enable game input
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void toMainMenu(){
+
     }
 }
