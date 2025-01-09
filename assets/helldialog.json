@@ -1,5 +1,14 @@
 {
   "scenes": {
+    "its_dante": {
+      "map": "maps/dark_room.tmx",
+      "dialogs": [
+        {
+          "character": "detective",
+          "text": "Oh shit it's Dante from the acclaimed 2001 videogame Devil May Cry"
+        }
+      ]
+    },
     "intro_no_death": {
       "map": "maps/dark_room.tmx",
       "dialogs": [

@@ -11,8 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.iss.dialogue.context.DialogueContext;
+import io.iss.dialogue.context.DialogueLoader;
 import io.iss.factory.StateType;
+import io.iss.objects.GameObject;
 import io.iss.screens.GameScreen;
+import io.iss.ui.Inventory;
 import io.iss.ui.PauseMenu;
 import io.iss.utils.FontManager;
 import io.iss.utils.GameAssetManager;
@@ -24,11 +27,14 @@ public class IntroState extends GameState {
 
     private final PauseMenu pauseMenu;
     private final DialogueContext dialogueContext;
+    private final DialogueLoader dialogueLoader;
 
     public IntroState(GameScreen screen) {
         super(screen);
 
+        dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
+
         pauseMenu = new PauseMenu(screen, stage, dialogueContext);
 
         doorImage = new Image(GameAssetManager.getInstance().get(GameAssetManager.DOOR_TEXTURE, Texture.class));
@@ -78,8 +84,43 @@ public class IntroState extends GameState {
 
         initPauseButton();
 
+        GameObject notebook = new GameObject("sword", new Texture("images/notebook.png"));
+        notebook.setPosition(200, 100);
+        notebook.setSize(100, 100);
+        stage.addActor(notebook);
+
+        GameObject notebook2 = new GameObject("sword", new Texture("images/notebook.png"));
+        notebook2.setPosition(400, 100);
+        notebook2.setSize(100, 100);
+        stage.addActor(notebook2);
+
+        //TODO: why do we need this first call of dialogue scene to make the actual dialogue work?
+        dialogueContext.startScene(dialogueLoader.getScene("its_dante"));
+
+        GameObject notebook3 = new GameObject("sword", new Texture("images/Dante.jpg"), () -> {
+            Inventory.getInstance().hide();
+            stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
+            dialogueContext.startScene(dialogueLoader.getScene("its_dante"), () -> {
+                dialogueContext.getDialogueUI().getDialogueBox().remove();
+                Inventory.getInstance().show();
+            });
+        });
+
+        notebook3.setPosition(700, 100);
+        notebook3.setSize(100, 100);
+        stage.addActor(notebook3);
+
+        stage.addActor(Inventory.getInstance().getInventoryBar());
+
         // Set up input processing
         Gdx.input.setInputProcessor(stage);
+    }
+
+
+    @Override
+    public void update(float delta) {
+        dialogueContext.update(delta);
+        super.update(delta);
     }
 
     @Override

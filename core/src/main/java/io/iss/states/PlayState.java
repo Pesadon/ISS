@@ -44,11 +44,9 @@ public class PlayState extends GameState {
         //stage.addActor(detective);
         stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
 
+        //TODO: why do we need this first call of dialogue scene to make the actual dialogue work?
         dialogueContext.startScene(dialogueLoader.getScene("intro_death"));
 
-        initPauseButton();
-
-        Gdx.input.setInputProcessor(stage);
         dialogueContext.startScene(dialogueLoader.getScene("intro_no_death"), () -> {
             stage.getActors().set(0, new Image(GameAssetManager.getInstance().get(GameAssetManager.DEAD_DETECTIVE_BG, Texture.class)));
             dialogueContext.startScene(dialogueLoader.getScene("intro_death"), () -> {
@@ -56,6 +54,9 @@ public class PlayState extends GameState {
             });
         });
         // Gdx.input.setInputProcessor(stage);
+
+        initPauseButton();
+        Gdx.input.setInputProcessor(stage);
     }
 
     public void initPauseButton() {
