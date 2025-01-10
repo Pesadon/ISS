@@ -5,7 +5,16 @@
       "dialogs": [
         {
           "character": "detective",
-          "text": "Oh shit it's Dante from the acclaimed 2001 videogame Devil May Cry"
+          "text": "Oh shit it's Dante from the critically acclaimed 2001 videogame Devil May Cry"
+        }
+      ]
+    },
+    "locked_door": {
+      "map": "maps/dark_room.tmx",
+      "dialogs": [
+        {
+          "character": "detective",
+          "text": "This door won't open, it's locked"
         }
       ]
     },

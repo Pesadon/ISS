@@ -1,10 +1,13 @@
 package io.iss.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import io.iss.objects.GameObject;
@@ -13,6 +16,7 @@ public class Inventory {
     private static Inventory instance;
     private final Array<GameObject> items = new Array<>();
     private final Table inventoryBar;
+    private GameObject selectedItem = null;
 
     private Inventory() {
         inventoryBar = new Table();
@@ -38,10 +42,40 @@ public class Inventory {
         items.add(item);
 
         Image itemImage = new Image(new TextureRegionDrawable(new TextureRegion(item.getTexture())));
-        inventoryBar.add(itemImage).size(100f, 100f).pad(5);
 
+        itemImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                selectItem(item);
+                for (int i = 0; i < inventoryBar.getChildren().size; i++) {
+                    if (inventoryBar.getChild(i) instanceof Image ){
+                        inventoryBar.getChild(i).setColor(Color.WHITE);
+                    }
+                }
+                itemImage.setColor(Color.YELLOW);
+            }
+        });
 
+        inventoryBar.add(itemImage).size(80f, 80f).pad(20);
         System.out.println("Added object: " + item.getId());
+    }
+
+    public void selectItem(GameObject item) {
+        if (selectedItem != null) {
+            deselectItem();
+        }
+
+        selectedItem = item;
+    }
+
+    public void deselectItem() {
+        if (selectedItem != null) {
+            selectedItem = null;
+        }
+    }
+
+    public GameObject getSelectedItem() {
+        return selectedItem;
     }
 
     public void clear() {

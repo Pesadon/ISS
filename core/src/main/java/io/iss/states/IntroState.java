@@ -14,6 +14,7 @@ import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
 import io.iss.factory.StateType;
 import io.iss.objects.GameObject;
+import io.iss.objects.InteractiveObject;
 import io.iss.screens.GameScreen;
 import io.iss.ui.Inventory;
 import io.iss.ui.PauseMenu;
@@ -79,8 +80,8 @@ public class IntroState extends GameState {
         // Add the door to our stage
         // stage.addActor(doorImage);
 
-        stage.addActor(table);
-        stage.addActor(danteImage);
+        //stage.addActor(table);
+        //stage.addActor(danteImage);
 
         initPauseButton();
 
@@ -89,15 +90,15 @@ public class IntroState extends GameState {
         notebook.setSize(100, 100);
         stage.addActor(notebook);
 
-        GameObject notebook2 = new GameObject("sword", new Texture("images/notebook.png"));
-        notebook2.setPosition(400, 100);
-        notebook2.setSize(100, 100);
-        stage.addActor(notebook2);
+        GameObject key = new GameObject("key", new Texture("images/key.jpg"));
+        key.setPosition(400, 100);
+        key.setSize(100, 100);
+        stage.addActor(key);
 
         //TODO: why do we need this first call of dialogue scene to make the actual dialogue work?
         dialogueContext.startScene(dialogueLoader.getScene("its_dante"));
 
-        GameObject notebook3 = new GameObject("sword", new Texture("images/Dante.jpg"), () -> {
+        GameObject littleDante = new GameObject("dante", new Texture("images/Dante.jpg"), () -> {
             Inventory.getInstance().hide();
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
             dialogueContext.startScene(dialogueLoader.getScene("its_dante"), () -> {
@@ -106,9 +107,29 @@ public class IntroState extends GameState {
             });
         });
 
-        notebook3.setPosition(700, 100);
-        notebook3.setSize(100, 100);
-        stage.addActor(notebook3);
+        littleDante.setPosition(600, 100);
+        littleDante.setSize(100, 100);
+        stage.addActor(littleDante);
+
+        InteractiveObject door = new InteractiveObject(
+            new Texture("images/door.png"), "key",
+            () -> {
+            Inventory.getInstance().hide();
+            stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
+            dialogueContext.startScene(dialogueLoader.getScene("locked_door"), () -> {
+                dialogueContext.getDialogueUI().getDialogueBox().remove();
+                Inventory.getInstance().show();
+            });
+            },
+            () -> {
+                screen.setState(screen.getStateFactory().createState(StateType.MENU));
+            });
+
+        door.setPosition(
+            centerX - doorImage.getWidth() / 2,
+            centerY - doorImage.getHeight() / 2
+        );
+        stage.addActor(door);
 
         stage.addActor(Inventory.getInstance().getInventoryBar());
 
