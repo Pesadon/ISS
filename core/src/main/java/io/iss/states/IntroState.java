@@ -3,7 +3,9 @@ package io.iss.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -132,6 +134,20 @@ public class IntroState extends GameState {
         stage.addActor(door);
 
         stage.addActor(Inventory.getInstance().getInventoryBar());
+
+        //TODO: this kind of code should be put in a superclass for stages in which the inventory is used
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Actor target = event.getTarget();
+
+                if (!(target instanceof InteractiveObject) && !(target instanceof Table)) {
+                    Inventory.getInstance().deselectItem();
+                    Inventory.getInstance().removeGuiSelection();
+                }
+                return true;
+            }
+        });
 
         // Set up input processing
         Gdx.input.setInputProcessor(stage);

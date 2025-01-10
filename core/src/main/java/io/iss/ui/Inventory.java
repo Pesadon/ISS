@@ -47,11 +47,7 @@ public class Inventory {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectItem(item);
-                for (int i = 0; i < inventoryBar.getChildren().size; i++) {
-                    if (inventoryBar.getChild(i) instanceof Image ){
-                        inventoryBar.getChild(i).setColor(Color.WHITE);
-                    }
-                }
+                removeGuiSelection();
                 itemImage.setColor(Color.YELLOW);
             }
         });
@@ -71,6 +67,15 @@ public class Inventory {
     public void deselectItem() {
         if (selectedItem != null) {
             selectedItem = null;
+        }
+
+    }
+
+    public void removeGuiSelection(){
+        for (int i = 0; i < inventoryBar.getChildren().size; i++) {
+            if (inventoryBar.getChild(i) instanceof Image ){
+                inventoryBar.getChild(i).setColor(Color.WHITE);
+            }
         }
     }
 
