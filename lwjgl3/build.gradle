@@ -39,8 +39,8 @@ dependencies {
       implementation "io.github.berstanio:gdx-svmhelper-extension-freetype:$graalHelperVersion"
     }
 
-  testImplementation(platform('org.junit:junit-bom:5.11.3'))
-  testImplementation('org.junit.jupiter:junit-jupiter')
+  testImplementation 'junit:junit:4.13.2'
+  implementation 'junit:junit:4.13.2'
   testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 }
 

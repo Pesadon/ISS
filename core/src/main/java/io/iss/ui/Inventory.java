@@ -14,6 +14,8 @@ import io.iss.objects.GameObject;
 
 import java.util.HashSet;
 
+import static org.junit.Assert.*;
+
 public class Inventory {
     private static Inventory instance;
     private final Array<GameObject> items = new Array<>();
@@ -42,6 +44,7 @@ public class Inventory {
 
 
     public void addItem(GameObject item) {
+        assertNotNull(item);
         if (collectedItems.contains(item.getId())) {
             return;
         }
