@@ -12,11 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import io.iss.objects.GameObject;
 
+import java.util.HashSet;
+
 public class Inventory {
     private static Inventory instance;
     private final Array<GameObject> items = new Array<>();
     private final Table inventoryBar;
     private GameObject selectedItem = null;
+    private final HashSet<String> collectedItems = new HashSet<>();
 
     private Inventory() {
         inventoryBar = new Table();
@@ -39,6 +42,11 @@ public class Inventory {
 
 
     public void addItem(GameObject item) {
+        if (collectedItems.contains(item.getId())) {
+            return;
+        }
+
+        collectedItems.add(item.getId());
         items.add(item);
 
         Image itemImage = new Image(new TextureRegionDrawable(new TextureRegion(item.getTexture())));
@@ -56,6 +64,15 @@ public class Inventory {
         System.out.println("Added object: " + item.getId());
     }
 
+    public void removeItem(String key){
+        for (int i = 0; i < items.size; i++) {
+            if (items.get(i).getId().equals(key)  ){
+                inventoryBar.getChild(i).remove();
+                items.removeIndex(i);
+            }
+        }
+    }
+
     public void selectItem(GameObject item) {
         if (selectedItem != null) {
             deselectItem();
@@ -68,7 +85,6 @@ public class Inventory {
         if (selectedItem != null) {
             selectedItem = null;
         }
-
     }
 
     public void removeGuiSelection(){
@@ -83,9 +99,14 @@ public class Inventory {
         return selectedItem;
     }
 
+    public boolean isCollected(String itemId) {
+        return collectedItems.contains(itemId);
+    }
+
     public void clear() {
         items.clear();
         inventoryBar.clear();
+        collectedItems.clear();
     }
 
     public void hide() {

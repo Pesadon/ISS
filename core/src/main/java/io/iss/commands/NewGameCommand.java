@@ -14,6 +14,6 @@ public class NewGameCommand implements MenuCommand {
     @Override
     public void execute() {
         Inventory.getInstance().init();
-        screen.setState(screen.getStateFactory().createState(StateType.INTRO));
+        screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM));
     }
 }

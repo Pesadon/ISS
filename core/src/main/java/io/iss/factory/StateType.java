@@ -2,7 +2,7 @@ package io.iss.factory;
 
 public enum StateType {
     MENU,
+    TEST_ROOM,
     INTRO,
-    PLAY,
     HELL_DIALOGUE
 }
