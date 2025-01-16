@@ -122,11 +122,10 @@ public class TestRoomState extends GameState {
         InteractiveObject door = new InteractiveObject(
             new Texture("images/door.png"), "key",
             () -> {
-                Inventory.getInstance().hide();
                 stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
                 dialogueContext.startScene(dialogueLoader.getScene("locked_door"), () -> {
                     dialogueContext.getDialogueUI().getDialogueBox().remove();
-                    Inventory.getInstance().show();
+
                 });
             },
             () -> {

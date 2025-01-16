@@ -9,6 +9,7 @@ import io.iss.dialogue.state.ChoiceDialogueState;
 import io.iss.dialogue.state.DialogueState;
 import io.iss.dialogue.state.NormalDialogueState;
 import io.iss.screens.GameScreen;
+import io.iss.ui.Inventory;
 
 public class DialogueContext {
     private DialogueState currentState;
@@ -36,9 +37,11 @@ public class DialogueContext {
         currentDialogueIndex = 0;
         setInitialState();
         endDialogueOperation = operation;
+        Inventory.getInstance().hide();
     }
 
     public void endScene() {
+        Inventory.getInstance().show();
         if(endDialogueOperation != null){
             endDialogueOperation.execute();
         }
