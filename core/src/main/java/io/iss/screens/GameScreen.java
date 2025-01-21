@@ -15,7 +15,7 @@ public class GameScreen implements Screen {
         this.game = game;
         this.stateFactory = new StateFactory(this);
 
-        setState(stateFactory.createState(StateType.MENU));
+        setState(stateFactory.createState(StateType.MENU, false));
     }
 
     public void setState(GameState newState) {

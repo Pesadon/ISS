@@ -1,6 +1,7 @@
 package io.iss.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import io.iss.objects.GameObject;
 
 import java.util.HashSet;
@@ -17,6 +19,9 @@ import java.util.HashSet;
 import static org.junit.Assert.*;
 
 public class Inventory {
+    private static final String PREFERENCES_NAME = "InventoryPreferences";
+    private static final String JSON_KEY = "InventoryData";
+
     private static Inventory instance;
     private final Array<GameObject> items = new Array<>();
     private final Table inventoryBar;
@@ -124,5 +129,28 @@ public class Inventory {
 
     public Table getInventoryBar() {
         return inventoryBar;
+    }
+
+    public void save() {
+        Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
+        Json json = new Json();
+        String jsonData = json.toJson(this);
+        System.out.println("Salvataggio JSON: " + jsonData);
+        prefs.putString(JSON_KEY, jsonData);
+        prefs.flush();
+    }
+
+    public static void load() {
+        Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
+        String jsonString = prefs.getString(JSON_KEY, null);
+        System.out.println("Caricamento JSON: " + jsonString);
+
+        if (jsonString != null) {
+            Json json = new Json();
+            instance = json.fromJson(Inventory.class, jsonString);
+        } else {
+            instance = new Inventory();
+            System.err.println("Nessun JSON salvato trovato.");
+        }
     }
 }

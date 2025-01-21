@@ -50,7 +50,7 @@ public class IntroState extends GameState {
         dialogueContext.startScene(dialogueLoader.getScene("intro_no_death"), () -> {
             stage.getActors().set(0, new Image(GameAssetManager.getInstance().get(GameAssetManager.DEAD_DETECTIVE_BG, Texture.class)));
             dialogueContext.startScene(dialogueLoader.getScene("intro_death"), () -> {
-                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM));
+                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM, true));
             });
         });
         // Gdx.input.setInputProcessor(stage);

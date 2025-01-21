@@ -12,6 +12,6 @@ public class MainMenuCommand implements MenuCommand {
 
     @Override
     public void execute() {
-        screen.setState(screen.getStateFactory().createState(StateType.MENU));
+        screen.setState(screen.getStateFactory().createState(StateType.MENU, false));
     }
 }
