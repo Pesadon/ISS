@@ -31,7 +31,7 @@ public class TestRoom2State extends GameState {
     public TestRoom2State(GameScreen screen) {
         super(screen);
 
-        JournalManager.getInstance().prependTextWithId("TestRoom2Enter", "Another room...");
+        JournalManager.getInstance().appendTextWithId("TestRoom2Enter", "Another room...");
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
@@ -56,7 +56,7 @@ public class TestRoom2State extends GameState {
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
             dialogueContext.startScene(dialogueLoader.getScene("its_dante"), () -> {
                 dialogueContext.getDialogueUI().getDialogueBox().remove();
-                JournalManager.getInstance().prependTextWithId("TestRoom2Dante", "I've found Dante, but I'm not sure of what to do with it");
+                JournalManager.getInstance().appendTextWithId("TestRoom2Dante", "I've found Dante, but I'm not sure of what to do with it");
                 Inventory.getInstance().show();
             });
         });

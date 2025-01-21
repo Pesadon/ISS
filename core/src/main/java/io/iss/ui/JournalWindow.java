@@ -75,6 +75,10 @@ public class JournalWindow {
 
         journalTable.add(scrollPane).expand().fill().pad(80).row();
 
+        scrollPane.layout(); // Assicura che lo ScrollPane calcoli correttamente il layout
+        scrollPane.setScrollY(scrollPane.getMaxY());
+        scrollPane.updateVisualScroll();
+
         stage.addListener(new ScrollInputListener(scrollPane));
 
         // Add the pause menu to the stage

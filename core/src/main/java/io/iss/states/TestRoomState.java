@@ -38,7 +38,7 @@ public class TestRoomState extends GameState {
     public TestRoomState(GameScreen screen) {
         super(screen);
 
-        JournalManager.getInstance().prependTextWithId("TestRoomEnter", "I need to get outside this room");
+        JournalManager.getInstance().appendTextWithId("TestRoomEnter", "I need to get outside this room");
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
@@ -116,14 +116,14 @@ public class TestRoomState extends GameState {
         InteractiveObject door = new InteractiveObject(
             new Texture("images/door.png"), "key",
             () -> {
-                JournalManager.getInstance().prependTextWithId("LockedDoor", "I've found a door, but it is locked, maybe I can find the key nearby");
+                JournalManager.getInstance().appendTextWithId("LockedDoor", "I've found a door, but it is locked, maybe I can find the key nearby");
                 stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
                 dialogueContext.startScene(dialogueLoader.getScene("locked_door"), () -> {
                     dialogueContext.getDialogueUI().getDialogueBox().remove();
                 });
             },
             () -> {
-                JournalManager.getInstance().prependTextWithId("UnlockedDoor", "Now that the door has been opened I can finally exit this room");
+                JournalManager.getInstance().appendTextWithId("UnlockedDoor", "Now that the door has been opened I can finally exit this room");
                 Inventory.getInstance().removeItem("key");
                 screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2, true));
             });
