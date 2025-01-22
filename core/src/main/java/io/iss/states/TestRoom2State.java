@@ -45,6 +45,7 @@ public class TestRoom2State extends GameState {
     private OrthographicCamera camera;
     private InteractiveArea[] interactiveAreas;
     private ShapeRenderer shapeRenderer;
+    public boolean isJournalOpen = false;
 
     public TestRoom2State(GameScreen screen) {
         super(screen);
@@ -87,7 +88,18 @@ public class TestRoom2State extends GameState {
 
         polygonObject = (PolygonMapObject) journalObject;
         vertices = polygonObject.getPolygon().getTransformedVertices();
-        interactiveAreas[2] = new InteractiveArea(vertices, journalWindow::showJournalWindow);
+        interactiveAreas[2] = new InteractiveArea(vertices, this::onJournalClick);
+
+        isJournalOpen = false;
+    }
+
+    public void onJournalClick() {
+        if (!isJournalOpen) {
+            journalWindow.showJournalWindow();
+        } else {
+            journalWindow.resumeGame();
+        }
+        isJournalOpen = !isJournalOpen;
     }
 
     @Override
