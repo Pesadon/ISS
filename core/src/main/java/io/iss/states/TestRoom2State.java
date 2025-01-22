@@ -80,11 +80,11 @@ public class TestRoom2State extends GameState {
 
         PolygonMapObject polygonObject = (PolygonMapObject) bookshelfObject;
         float[] vertices = polygonObject.getPolygon().getTransformedVertices();
-        interactiveAreas[0] = new InteractiveArea(vertices, journalWindow::showJournalWindow);
+        interactiveAreas[0] = new InteractiveArea(vertices, this::onBookshelfClick);
 
         polygonObject = (PolygonMapObject) doorObject;
         vertices = polygonObject.getPolygon().getTransformedVertices();
-        interactiveAreas[1] = new InteractiveArea(vertices, journalWindow::showJournalWindow);
+        interactiveAreas[1] = new InteractiveArea(vertices, this::onDoorClick);
 
         polygonObject = (PolygonMapObject) journalObject;
         vertices = polygonObject.getPolygon().getTransformedVertices();
@@ -100,6 +100,13 @@ public class TestRoom2State extends GameState {
             journalWindow.resumeGame();
         }
         isJournalOpen = !isJournalOpen;
+    }
+
+    public void onDoorClick() {
+    }
+
+    public void onBookshelfClick() {
+
     }
 
     @Override
