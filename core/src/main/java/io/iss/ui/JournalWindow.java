@@ -90,7 +90,7 @@ public class JournalWindow {
         Gdx.input.setInputProcessor(stage);
     }
 
-    private void resumeGame() {
+    public void resumeGame() {
         // Remove the pause menu table
         if (journalTable != null) {
             journalTable.remove();

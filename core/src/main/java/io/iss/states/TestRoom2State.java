@@ -1,8 +1,18 @@
 package io.iss.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ScreenUtils;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
 import io.iss.objects.GameObject;
@@ -20,6 +32,7 @@ import io.iss.ui.JournalManager;
 import io.iss.ui.JournalWindow;
 import io.iss.ui.PauseMenu;
 import io.iss.utils.GameAssetManager;
+import io.iss.utils.InteractiveArea;
 
 public class TestRoom2State extends GameState {
 
@@ -27,6 +40,12 @@ public class TestRoom2State extends GameState {
     private final JournalWindow journalWindow;
     private final DialogueContext dialogueContext;
     private final DialogueLoader dialogueLoader;
+    private final TiledMap map;
+    private final OrthogonalTiledMapRenderer mapRenderer;
+    private OrthographicCamera camera;
+    private InteractiveArea[] interactiveAreas;
+    private ShapeRenderer shapeRenderer;
+    public boolean isJournalOpen = false;
 
     public TestRoom2State(GameScreen screen) {
         super(screen);
@@ -41,6 +60,46 @@ public class TestRoom2State extends GameState {
 
         journalWindow = new JournalWindow(screen, stage, dialogueContext);
         initJournalButton();
+
+        map = new TmxMapLoader().load("tilemap/office.tmx");
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        MapLayer objectLayer = map.getLayers().get("Layer");
+
+        MapObjects objects = objectLayer.getObjects();
+
+        MapObject bookshelfObject = objects.get("Bookshelf");
+        MapObject doorObject = objects.get("Door");
+        MapObject journalObject = objects.get("Journal");
+
+        interactiveAreas = new InteractiveArea[3];
+        shapeRenderer = new ShapeRenderer();
+
+        PolygonMapObject polygonObject = (PolygonMapObject) bookshelfObject;
+        float[] vertices = polygonObject.getPolygon().getTransformedVertices();
+        interactiveAreas[0] = new InteractiveArea(vertices, journalWindow::showJournalWindow);
+
+        polygonObject = (PolygonMapObject) doorObject;
+        vertices = polygonObject.getPolygon().getTransformedVertices();
+        interactiveAreas[1] = new InteractiveArea(vertices, journalWindow::showJournalWindow);
+
+        polygonObject = (PolygonMapObject) journalObject;
+        vertices = polygonObject.getPolygon().getTransformedVertices();
+        interactiveAreas[2] = new InteractiveArea(vertices, this::onJournalClick);
+
+        isJournalOpen = false;
+    }
+
+    public void onJournalClick() {
+        if (!isJournalOpen) {
+            journalWindow.showJournalWindow();
+        } else {
+            journalWindow.resumeGame();
+        }
+        isJournalOpen = !isJournalOpen;
     }
 
     @Override
@@ -87,6 +146,33 @@ public class TestRoom2State extends GameState {
         Gdx.input.setInputProcessor(stage);
     }
 
+    @Override
+    public void render(float delta) {
+        // First update the state
+        update(delta);
+
+        // clearing the screen
+        ScreenUtils.clear(0, 0, 0, 0);
+
+        camera.update();
+        mapRenderer.setView(camera);
+        mapRenderer.render();
+
+        Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePos);
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        for(InteractiveArea area : interactiveAreas) {
+            area.setHovered(area.contains(mousePos.x, mousePos.y));
+            area.render(shapeRenderer);
+            area.checkClick(mousePos.x, mousePos.y);
+        }
+        shapeRenderer.end();
+
+        // Then update and draw the stage
+        stage.act(delta);
+        stage.draw();
+    }
 
     @Override
     public void update(float delta) {

@@ -88,8 +88,6 @@ public class IntroState extends GameState {
         stage.addActor(pauseButton);
     }
 
-
-
     @Override
     public void update(float delta) {
         dialogueContext.update(delta);
