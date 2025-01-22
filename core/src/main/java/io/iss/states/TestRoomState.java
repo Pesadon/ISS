@@ -125,7 +125,7 @@ public class TestRoomState extends GameState {
             () -> {
                 JournalManager.getInstance().appendTextWithId("UnlockedDoor", "Now that the door has been opened I can finally exit this room");
                 Inventory.getInstance().removeItem("key");
-                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2, true));
+                screen.setState(screen.getStateFactory().createState(StateType.MINI_GAME_TEST, true));
             });
 
         door.setPosition(

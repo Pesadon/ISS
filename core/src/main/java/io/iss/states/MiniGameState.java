@@ -2,9 +2,13 @@ package io.iss.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.iss.minigames.MiniGame;
-import io.iss.objects.InteractiveObject;
 import io.iss.screens.GameScreen;
+import io.iss.utils.GameAssetManager;
 
 public class MiniGameState extends GameState implements MiniGame.MiniGameListener {
     private MiniGame miniGame;
@@ -15,19 +19,31 @@ public class MiniGameState extends GameState implements MiniGame.MiniGameListene
 
     @Override
     public void enter() {
-        Texture objectTexture = new Texture("assets/images/notebook.png");
+        // Add background
+        Image backgroundImage = new Image(GameAssetManager.getInstance().get(GameAssetManager.OFFICE_TEXTURE, Texture.class));
+        backgroundImage.setFillParent(true);
+        stage.addActor(backgroundImage);
 
-        InteractiveObject interactiveObject = new InteractiveObject(
-            objectTexture,
-            "notebook",
-            this::startMiniGame,
-            null
+        // Create a custom transparent panel
+        Actor transparentPanel = new Actor();
+        transparentPanel.setSize(300, 300); // Size of the panel
+        transparentPanel.setPosition(
+            (stage.getWidth() / 2 - 100) + 100, // Center alignment
+            stage.getHeight() / 2 - 100
         );
 
-        interactiveObject.setPosition(stage.getWidth() / 2 - objectTexture.getWidth() / 2,
-            stage.getHeight() / 2 - objectTexture.getHeight() / 2);
+        // Add click event to the transparent panel
+        transparentPanel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                startMiniGame();
+            }
+        });
 
-        stage.addActor(interactiveObject);
+        // Add the transparent panel to the Stage
+        stage.addActor(transparentPanel);
+
+        // Set the input processor
         Gdx.input.setInputProcessor(stage);
     }
 

@@ -6,4 +6,5 @@ public enum StateType {
     TEST_ROOM2,
     INTRO,
     HELL_DIALOGUE,
+    MINI_GAME_TEST
 }

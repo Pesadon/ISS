@@ -20,12 +20,12 @@ public class StateFactory {
             saveState(type);
         }
         return switch (type) {
-           // case MENU -> new MenuState(screen);
+            case MENU -> new MenuState(screen);
             case TEST_ROOM -> new TestRoomState(screen);
             case TEST_ROOM2 -> new TestRoom2State(screen);
             case INTRO -> new IntroState(screen);
             case HELL_DIALOGUE -> new DialogueTest(screen);
-            case MENU -> new MiniGameState(screen);
+            case MINI_GAME_TEST -> new MiniGameState(screen);
         };
     }
 
