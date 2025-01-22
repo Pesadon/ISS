@@ -141,5 +141,8 @@ public class PauseMenu {
         stage.addActor(warningDialog);
     }
 
-    private void saveGame(){}
+    private void saveGame(){
+        //Inventory.getInstance().save();
+        JournalManager.getInstance().save();
+    }
 }
