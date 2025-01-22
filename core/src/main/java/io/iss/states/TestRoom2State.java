@@ -74,8 +74,9 @@ public class TestRoom2State extends GameState {
         MapObject bookshelfObject = objects.get("Bookshelf");
         MapObject doorObject = objects.get("Door");
         MapObject journalObject = objects.get("Journal");
+        MapObject computerObject = objects.get("Computer");
 
-        interactiveAreas = new InteractiveArea[3];
+        interactiveAreas = new InteractiveArea[4];
         shapeRenderer = new ShapeRenderer();
 
         PolygonMapObject polygonObject = (PolygonMapObject) bookshelfObject;
@@ -89,6 +90,10 @@ public class TestRoom2State extends GameState {
         polygonObject = (PolygonMapObject) journalObject;
         vertices = polygonObject.getPolygon().getTransformedVertices();
         interactiveAreas[2] = new InteractiveArea(vertices, this::onJournalClick);
+
+        polygonObject = (PolygonMapObject) computerObject;
+        vertices = polygonObject.getPolygon().getTransformedVertices();
+        interactiveAreas[3] = new InteractiveArea(vertices, this::onComputerfClick);
 
         isJournalOpen = false;
     }
@@ -109,14 +114,20 @@ public class TestRoom2State extends GameState {
 
     }
 
+    public void onComputerfClick() {
+
+    }
+
     @Override
     public void enter() {
         Table table = new Table();
         table.setFillParent(true);
 
-        //TODO: why do we need this first call of dialogue scene to make the actual dialogue work?
-        dialogueContext.startScene(dialogueLoader.getScene("its_dante"));
+        stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
+        // TODO: why do we need this first call of dialogue scene to make the actual dialogue work?
+        // dialogueContext.startScene(dialogueLoader.getScene("its_dante"));
 
+        /*
         GameObject littleDante = new GameObject("dante", new Texture("images/Dante.jpg"), () -> {
             Inventory.getInstance().hide();
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
@@ -132,6 +143,8 @@ public class TestRoom2State extends GameState {
             littleDante.setSize(100, 100);
             stage.addActor(littleDante);
         }
+        */
+        dialogueContext.startScene(dialogueLoader.getScene("office_scene"));
 
         stage.addActor(Inventory.getInstance().getInventoryBar());
 
