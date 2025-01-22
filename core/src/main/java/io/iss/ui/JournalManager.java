@@ -26,26 +26,24 @@ public class JournalManager {
         return instance;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void prependTextWithId(String id, String text) {
+    public boolean prependTextWithId(String id, String text) {
         if (addedIds.contains(id)) {
-            return;
+            return true;
         }
 
         addedIds.add(id);
         content = text + (content.isEmpty() ? "" : "\n" + content);
+        return false;
     }
 
-    public void appendTextWithId(String id, String text) {
+    public boolean appendTextWithId(String id, String text) {
         if (addedIds.contains(id)) {
-            return;
+            return true;
         }
 
         addedIds.add(id);
         content = content + (content.isEmpty() ? "" : "\n") + text;
+        return false;
     }
 
     public void clean(){
@@ -74,5 +72,21 @@ public class JournalManager {
             instance = new JournalManager();
             System.err.println("Nessun JSON salvato trovato.");
         }
+    }
+
+    public HashSet<String> getAddedIds() {
+        return addedIds;
+    }
+
+    public void setAddedIds(HashSet<String> addedIds) {
+        this.addedIds = addedIds;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String text) {
+        this.content = text;
     }
 }
