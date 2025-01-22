@@ -14,15 +14,15 @@
       "dialogs": [
         {
           "character": "detective",
-          "text": "This is where I keep all of my solved cases. There's lots of them."
+          "text": "This is where I keep all of my solved cases.\nThere's lots of them."
         },
         {
           "character": "detective",
-          "text": "This is where I keep all of my solved cases. There's lots of them."
+          "text": "This is where I keep all of my solved cases.\nThere's lots of them."
         },
         {
           "character": "sister",
-          "text": "Sister: Timotlee are you there?"
+          "text": "Beatrice: Timotlee are you there?!"
         }
       ]
     },
@@ -44,6 +44,12 @@
         }, {
           "character": "detective",
           "text": "This door won't open, it's locked"
+        }, {
+          "character": "sister",
+          "text": "Beatrice: Did you lock the door and lost the key?!"
+        }, {
+          "character": "detective",
+          "text": "If I don't hurry up I won't have a door anymore"
         }
       ]
     },
@@ -182,17 +188,21 @@
       "map": "maps/office.tmx",
       "dialogs": [
         {
-          "character": "sister",
-          "text": "NAME... NAME"
-        },
-        {
           "character": "detective",
-          "text": "what... what just happened?",
+          "text": "What... What just happened?",
           "type": "thought"
         },
         {
           "character": "sister",
-          "text": "NAME!"
+          "text": "Sister: Timothée... Timothée?"
+        },
+        {
+          "character": "sister",
+          "text": "I hear knocks from the other side of the door"
+        },
+        {
+          "character": "sister",
+          "text": "Sister: Timothée!"
         },
         {
           "character": "detective",
@@ -201,29 +211,24 @@
         },
         {
           "character": "sister",
-          "text": "NAME ARE YOU LISTENING?"
+          "text": "Sister: Timothée are you in there?!"
         },
         {
           "character": "detective",
-          "text": "Yeah, I am, no need to break my ears"
+          "text": "Me: Yeah, I am, no need to break my ears"
         },
         {
           "character": "detective",
-          "text": "This is my sister SISTER NAME, I kind of remember she was the one that gave me the case but… damn I can't seem to remember much else",
+          "text": "This is my sister Beatrice, I kind of remember she was the one that gave me the case but… \nDamn, I can't seem to remember much else",
           "type": "thought"
         },
         {
           "character": "sister",
-          "text": "Doesn't seem like that. Can you stop zoning out and listen to me for a second? It's serious, I swear"
+          "text": "Sister: Why did you lock yourself inside the office?\nIf you don't open the door I'll knock the door down!"
         },
         {
           "character": "detective",
-          "text": "Maybe it was all just a lucid dream, I should hear her… before she decide to break more than my eardrums",
-          "type": "thought"
-        },
-        {
-          "character": "detective",
-          "text": "I can interact with people and object by clicking on them, I should do it on Sis to check what she want",
+          "text": "Maybe it was all just a lucid dream.\nI should probably listen to her… before she actually destroy my office door",
           "type": "thought"
         }
       ],
