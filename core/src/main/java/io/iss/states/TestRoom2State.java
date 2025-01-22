@@ -54,7 +54,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     public TestRoom2State(GameScreen screen) {
         super(screen);
 
-        JournalManager.getInstance().appendTextWithId("TestRoom2Enter", "Another room...");
+        JournalManager.getInstance().appendTextWithId("TestRoom2Enter", "Looks like I'm in my office, I should investigate to understand what happened");
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
@@ -127,7 +127,10 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     }
 
     public void onBookshelfClick() {
-
+        stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
+        dialogueContext.startScene(dialogueLoader.getScene("bookshelf"), () -> {
+            dialogueContext.getDialogueUI().getDialogueBox().remove();
+        });
     }
 
     public void onComputerClick() {

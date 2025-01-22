@@ -9,6 +9,23 @@
         }
       ]
     },
+    "bookshelf": {
+      "map": "maps/dark_room.tmx",
+      "dialogs": [
+        {
+          "character": "detective",
+          "text": "This is where I keep all of my solved cases. There's lots of them."
+        },
+        {
+          "character": "detective",
+          "text": "This is where I keep all of my solved cases. There's lots of them."
+        },
+        {
+          "character": "sister",
+          "text": "Sister: Timotlee are you there?"
+        }
+      ]
+    },
     "mini_game_win": {
     "map": "maps/dark_room.tmx",
     "dialogs": [
@@ -22,6 +39,9 @@
       "map": "maps/dark_room.tmx",
       "dialogs": [
         {
+          "character": "detective",
+          "text": "This door won't open, it's locked"
+        }, {
           "character": "detective",
           "text": "This door won't open, it's locked"
         }
