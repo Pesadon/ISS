@@ -19,17 +19,20 @@ public class Buttons {
     private static float ANIMATION_DURATION;
     private static float BUTTON_PADDING;
     private final TextureAtlas buttonAtlas;
+    private int createdButtonsCount; // Counter to track the number of buttons created
 
     public Buttons(float animationDuration, float buttonPadding) {
         ANIMATION_DURATION = animationDuration;
         BUTTON_PADDING = buttonPadding;
         buttonAtlas = ButtonAtlasGenerator.createButtonAtlas();
+        createdButtonsCount = 0; // Initialize counter
     }
 
     public Buttons() {
         ANIMATION_DURATION = 0.3f;
         BUTTON_PADDING = 20f;
         buttonAtlas = ButtonAtlasGenerator.createButtonAtlas();
+        createdButtonsCount = 0; // Initialize counter
     }
 
     public void createAnimatedButton(Table table, String text, final MenuCommand command) {
@@ -74,6 +77,10 @@ public class Buttons {
             )
         ));
 
+        // Increment the counter when a button is created
+        createdButtonsCount++;
+
+        // Add button to the table
         table.add(button).pad(BUTTON_PADDING).width(200).row();
     }
 
@@ -87,6 +94,11 @@ public class Buttons {
         style.font = FontManager.getInstance().getMenuFont();
 
         return style;
+    }
+
+    // Method to get the count of buttons created
+    public int getCreatedButtonsCount() {
+        return createdButtonsCount;
     }
 
     public void dispose() {

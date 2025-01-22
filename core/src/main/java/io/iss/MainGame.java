@@ -23,9 +23,7 @@ public class MainGame extends Game {
 
     @Override
     public void render() {
-        batch.begin();
         super.render();
-        batch.end();
     }
 
     public Skin getSkin() {
@@ -34,7 +32,9 @@ public class MainGame extends Game {
 
     @Override
     public void resize(int width, int height) {
-        // stageManager.getActiveStage().getViewport().update(width, height);
+        if (getScreen() != null) {
+            getScreen().resize(width, height);
+        }
     }
 
     @Override

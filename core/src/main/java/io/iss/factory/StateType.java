@@ -4,5 +4,5 @@ public enum StateType {
     MENU,
     TEST_ROOM,
     INTRO,
-    HELL_DIALOGUE
+    HELL_DIALOGUE,
 }

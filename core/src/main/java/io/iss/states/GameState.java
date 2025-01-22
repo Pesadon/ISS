@@ -1,5 +1,6 @@
 package io.iss.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -14,7 +15,8 @@ public abstract class GameState {
 
     public GameState(GameScreen screen) {
         this.screen = screen;
-        this.viewport = new FitViewport(1920, 1080);
+        //this.viewport = new FitViewport(1920, 1080);
+        this.viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.stage = new Stage(viewport);
     }
 

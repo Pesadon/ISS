@@ -18,6 +18,7 @@ public class MainMenuTable extends Table {
     private static final float ANIMATION_DURATION = 0.3f;
     private Buttons buttons;
     private final Texture panelTexture;
+    private boolean isPanelTextureDisposed = false; // Flag to track if disposed
 
     public MainMenuTable(GameScreen screen) {
         super(screen.getGame().getSkin());
@@ -27,7 +28,7 @@ public class MainMenuTable extends Table {
 
         panelTexture = PanelGenerator.createMenuPanel(panelWidth, panelHeight);
 
-        buttons=new Buttons();
+        buttons = new Buttons();
 
         // This is important - it will take up the full screen but won't stretch our panel
         Table containerTable = new Table();
@@ -36,7 +37,6 @@ public class MainMenuTable extends Table {
         // Create our actual menu panel table that will hold our content
         Table menuPanel = new Table();
         menuPanel.setBackground(new TextureRegionDrawable(new TextureRegion(panelTexture)));
-
 
         // Add title
         Label titleLabel = new Label("Memento Paradox", FontManager.getInstance().createTitleStyle());
@@ -59,9 +59,24 @@ public class MainMenuTable extends Table {
         add(containerTable).grow();
     }
 
+    public void setButtons(Buttons buttons) {
+        this.buttons = buttons;
+    }
+
+    public Texture getPanelTexture() {
+        return panelTexture;
+    }
+
 
     public void dispose() {
+        // Dispose resources manually
         buttons.dispose();
         panelTexture.dispose();
+        isPanelTextureDisposed = true; // Set flag when disposed
+    }
+
+    public boolean isPanelTextureDisposed() {
+        return isPanelTextureDisposed; // Return the flag status
     }
 }
+
