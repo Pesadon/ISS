@@ -47,7 +47,8 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     private OrthographicCamera camera;
     private InteractiveArea[] interactiveAreas;
     private ShapeRenderer shapeRenderer;
-    public boolean isJournalOpen = false;
+    public boolean isJournalOpen;
+    public boolean isComputerOpen;
 
     public TestRoom2State(GameScreen screen) {
         super(screen);
@@ -97,7 +98,10 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         vertices = polygonObject.getPolygon().getTransformedVertices();
         interactiveAreas[3] = new InteractiveArea(vertices, this::onComputerClick);
 
+        miniGame = new ColorMiniGame(stage, this);
+
         isJournalOpen = false;
+        isComputerOpen=false;
     }
 
     public void onJournalClick() {
@@ -117,8 +121,10 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     }
 
     public void onComputerClick() {
-        miniGame = new ColorMiniGame(stage, this);
-        miniGame.start();
+        if(!isComputerOpen){
+            isComputerOpen=true;
+            miniGame.start();
+        }
     }
 
     @Override
@@ -221,6 +227,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         } else {
             System.out.println("MiniGame failed.");
         }
+        isComputerOpen=false;
     }
 
 
