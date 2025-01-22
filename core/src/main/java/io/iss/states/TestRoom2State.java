@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
+import io.iss.factory.StateType;
 import io.iss.minigames.ColorMiniGame;
 import io.iss.objects.GameObject;
 import io.iss.objects.InteractiveObject;
@@ -101,7 +102,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         miniGame = new ColorMiniGame(stage, this);
 
         isJournalOpen = false;
-        isComputerOpen=false;
+        isComputerOpen = false;
     }
 
     public void onJournalClick() {
@@ -121,8 +122,8 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     }
 
     public void onComputerClick() {
-        if(!isComputerOpen){
-            isComputerOpen=true;
+        if (!isComputerOpen) {
+            isComputerOpen = true;
             miniGame.start();
         }
     }
@@ -191,7 +192,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         camera.unproject(mousePos);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        for(InteractiveArea area : interactiveAreas) {
+        for (InteractiveArea area : interactiveAreas) {
             area.setHovered(area.contains(mousePos.x, mousePos.y));
             area.render(shapeRenderer);
             area.checkClick(mousePos.x, mousePos.y);
@@ -223,11 +224,16 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     @Override
     public void onMiniGameEnd(boolean success) {
         if (success) {
-            System.out.println("MiniGame completed successfully!");
+            stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
+            dialogueContext.startScene(dialogueLoader.getScene("mini_game_win"), () -> {
+                dialogueContext.getDialogueUI().getDialogueBox().remove();
+                JournalManager.getInstance().appendTextWithId("TestRoom2Dante", "Let’s go! Now I can use this key to open the door.");
+                Inventory.getInstance().show();
+            });
         } else {
             System.out.println("MiniGame failed.");
         }
-        isComputerOpen=false;
+        isComputerOpen = false;
     }
 
 

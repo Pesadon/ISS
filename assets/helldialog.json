@@ -5,10 +5,19 @@
       "dialogs": [
         {
           "character": "detective",
-          "text": "Oh shit it's Dante from the critically acclaimed 2001 videogame Devil May Cry"
+          "text": "Oh shit it's Dante from the critically acclaimed 2001 videogame Devil May Cry."
         }
       ]
     },
+    "mini_game_win": {
+    "map": "maps/dark_room.tmx",
+    "dialogs": [
+      {
+        "character": "detective",
+        "text": "Oh, hacking the computer revealed a hidden compartment in the desk with a key inside."
+      }
+    ]
+  },
     "locked_door": {
       "map": "maps/dark_room.tmx",
       "dialogs": [
