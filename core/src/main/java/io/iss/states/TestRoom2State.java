@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
+import io.iss.minigames.ColorMiniGame;
 import io.iss.objects.GameObject;
 import io.iss.objects.InteractiveObject;
 import io.iss.screens.GameScreen;
@@ -34,7 +35,7 @@ import io.iss.ui.PauseMenu;
 import io.iss.utils.GameAssetManager;
 import io.iss.utils.InteractiveArea;
 
-public class TestRoom2State extends GameState {
+public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameListener {
 
     private final PauseMenu pauseMenu;
     private final JournalWindow journalWindow;
@@ -42,6 +43,7 @@ public class TestRoom2State extends GameState {
     private final DialogueLoader dialogueLoader;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer mapRenderer;
+    private ColorMiniGame miniGame;
     private OrthographicCamera camera;
     private InteractiveArea[] interactiveAreas;
     private ShapeRenderer shapeRenderer;
@@ -115,7 +117,8 @@ public class TestRoom2State extends GameState {
     }
 
     public void onComputerClick() {
-
+        miniGame = new ColorMiniGame(stage, this);
+        miniGame.start();
     }
 
     @Override
@@ -197,6 +200,9 @@ public class TestRoom2State extends GameState {
     @Override
     public void update(float delta) {
         dialogueContext.update(delta);
+        if (miniGame != null) {
+            miniGame.update(delta);
+        }
         super.update(delta);
     }
 
@@ -206,6 +212,17 @@ public class TestRoom2State extends GameState {
         stage.dispose();
         Gdx.input.setInputProcessor(null);
     }
+
+
+    @Override
+    public void onMiniGameEnd(boolean success) {
+        if (success) {
+            System.out.println("MiniGame completed successfully!");
+        } else {
+            System.out.println("MiniGame failed.");
+        }
+    }
+
 
     public void initPauseButton() {
         // Load the image for the button (you can replace "pauseImage" with your image name)
