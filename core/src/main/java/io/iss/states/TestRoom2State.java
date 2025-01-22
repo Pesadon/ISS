@@ -93,7 +93,7 @@ public class TestRoom2State extends GameState {
 
         polygonObject = (PolygonMapObject) computerObject;
         vertices = polygonObject.getPolygon().getTransformedVertices();
-        interactiveAreas[3] = new InteractiveArea(vertices, this::onComputerfClick);
+        interactiveAreas[3] = new InteractiveArea(vertices, this::onComputerClick);
 
         isJournalOpen = false;
     }
@@ -114,7 +114,7 @@ public class TestRoom2State extends GameState {
 
     }
 
-    public void onComputerfClick() {
+    public void onComputerClick() {
 
     }
 
