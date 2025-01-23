@@ -18,7 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.iss.commands.MainMenuCommand;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.screens.GameScreen;
+import io.iss.states.GameState;
 import io.iss.utils.FontManager;
+import io.iss.utils.JournalManager;
 
 public class PauseMenu {
     private Table pauseMenuTable;
@@ -26,10 +28,12 @@ public class PauseMenu {
     private DialogueContext dialogueContext;
     private Stage stage;
     private GameScreen screen;
+    private GameState state;
     private Buttons buttons;
 
-    public PauseMenu(GameScreen screen, Stage stage, DialogueContext dialogueContext) {
+    public PauseMenu(GameScreen screen, GameState state, Stage stage, DialogueContext dialogueContext) {
         this.screen = screen;
+        this.state = state;
         this.stage = stage;
         this.dialogueContext = dialogueContext;
         this.buttons = new Buttons();
@@ -142,7 +146,8 @@ public class PauseMenu {
     }
 
     private void saveGame(){
-        //Inventory.getInstance().save();
+        Inventory.getInstance().save();
         JournalManager.getInstance().save();
+        screen.getStateFactory().saveState(state.getType());
     }
 }

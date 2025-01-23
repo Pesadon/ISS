@@ -1,7 +1,8 @@
 package io.iss.commands;
 
 import io.iss.screens.GameScreen;
-import io.iss.ui.JournalManager;
+import io.iss.ui.Inventory;
+import io.iss.utils.JournalManager;
 
 public class ContinueGameCommand implements MenuCommand {
     private final GameScreen screen;
@@ -12,8 +13,8 @@ public class ContinueGameCommand implements MenuCommand {
 
     @Override
     public void execute() {
-        //Inventory.load();
+        Inventory.getInstance().load();
         JournalManager.load();
-        screen.setState(screen.getStateFactory().createState(screen.getStateFactory().loadState(), false));
+        screen.setState(screen.getStateFactory().createState(screen.getStateFactory().loadState()));
     }
 }

@@ -13,24 +13,20 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.dialogue.context.DialogueLoader;
 import io.iss.factory.StateType;
 import io.iss.minigames.ColorMiniGame;
 import io.iss.objects.GameObject;
-import io.iss.objects.InteractiveObject;
 import io.iss.screens.GameScreen;
 import io.iss.ui.Inventory;
-import io.iss.ui.JournalManager;
+import io.iss.utils.JournalManager;
 import io.iss.ui.JournalWindow;
 import io.iss.ui.PauseMenu;
 import io.iss.utils.GameAssetManager;
@@ -54,12 +50,14 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     public TestRoom2State(GameScreen screen) {
         super(screen);
 
+        type = StateType.TEST_ROOM2;
+
         JournalManager.getInstance().appendTextWithId("TestRoom2Enter", "Looks like I'm in my office, I should investigate to understand what happened");
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
 
-        pauseMenu = new PauseMenu(screen, stage, dialogueContext);
+        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
         initPauseButton();
 
         journalWindow = new JournalWindow(screen, stage, dialogueContext);
@@ -116,7 +114,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
 
     public void onDoorClick() {
         if(Inventory.getInstance().isCollected("key") && Inventory.getInstance().getSelectedItem() != null && Inventory.getInstance().getSelectedItem().getId().equals("key")) {
-            screen.setState(screen.getStateFactory().createState(StateType.MENU, false));
+            screen.setState(screen.getStateFactory().createState(StateType.MENU));
         } else {
             JournalManager.getInstance().appendTextWithId("LockedDoor", "The door to my office is locked, but I don't remember locking it.\nI should start looking for the key. Where could it be?");
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
@@ -292,7 +290,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         float buttonSize = 80f; // Set the size of the button
         journalButton.setSize(buttonSize, buttonSize);
 
-        // Position the button in the top-left corner
+        // Position the button in the top-right corner
         float buttonPadding = 20f; // Padding from the edges
         journalButton.setPosition(Gdx.graphics.getWidth() - buttonSize - buttonPadding, Gdx.graphics.getHeight() - journalButton.getHeight() - buttonPadding);
 

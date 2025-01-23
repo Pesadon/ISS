@@ -22,9 +22,11 @@ public class IntroState extends GameState {
     public IntroState(GameScreen screen) {
         super(screen);
 
+        type = StateType.INTRO;
+
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
-        pauseMenu = new PauseMenu(screen, stage, dialogueContext);
+        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
     }
 
     @Override
@@ -50,7 +52,7 @@ public class IntroState extends GameState {
         dialogueContext.startScene(dialogueLoader.getScene("intro_no_death"), () -> {
             stage.getActors().set(0, new Image(GameAssetManager.getInstance().get(GameAssetManager.DEAD_DETECTIVE_BG, Texture.class)));
             dialogueContext.startScene(dialogueLoader.getScene("intro_death"), () -> {
-                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2, true));
+                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2));
             });
         });
         // Gdx.input.setInputProcessor(stage);

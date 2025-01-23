@@ -1,4 +1,4 @@
-package io.iss.ui;
+package io.iss.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -55,7 +55,7 @@ public class JournalManager {
         Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
         Json json = new Json();
         String jsonData = json.toJson(this);
-        System.out.println("Salvataggio JSON: " + jsonData);
+        System.out.println("Saving JSON: " + jsonData);
         prefs.putString(JSON_KEY, jsonData);
         prefs.flush();
     }
@@ -63,14 +63,14 @@ public class JournalManager {
     public static void load() {
         Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
         String jsonString = prefs.getString(JSON_KEY, null);
-        System.out.println("Caricamento JSON: " + jsonString);
+        System.out.println("Loading JSON: " + jsonString);
 
         if (jsonString != null) {
             Json json = new Json();
             instance = json.fromJson(JournalManager.class, jsonString);
         } else {
             instance = new JournalManager();
-            System.err.println("Nessun JSON salvato trovato.");
+            System.err.println("No saved JSON found.");
         }
     }
 

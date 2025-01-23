@@ -19,7 +19,7 @@ import io.iss.objects.GameObject;
 import io.iss.objects.InteractiveObject;
 import io.iss.screens.GameScreen;
 import io.iss.ui.Inventory;
-import io.iss.ui.JournalManager;
+import io.iss.utils.JournalManager;
 import io.iss.ui.JournalWindow;
 import io.iss.ui.PauseMenu;
 import io.iss.utils.FontManager;
@@ -38,12 +38,14 @@ public class TestRoomState extends GameState {
     public TestRoomState(GameScreen screen) {
         super(screen);
 
+        type = StateType.TEST_ROOM;
+
         JournalManager.getInstance().appendTextWithId("TestRoomEnter", "I need to get outside this room");
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
 
-        pauseMenu = new PauseMenu(screen, stage, dialogueContext);
+        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
         initPauseButton();
 
         journalWindow = new JournalWindow(screen, stage, dialogueContext);
@@ -73,7 +75,7 @@ public class TestRoomState extends GameState {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // When the door is clicked, we'll transition to the play state
-                screen.setState(screen.getStateFactory().createState(StateType.MENU, false));
+                screen.setState(screen.getStateFactory().createState(StateType.MENU));
             }
         });
 
@@ -96,14 +98,14 @@ public class TestRoomState extends GameState {
 
 
 
-        GameObject notebook = new GameObject("sword", new Texture("images/notebook.png"));
+        GameObject notebook = new GameObject("notebook", new Texture("images/notebook.png"));
         if (!Inventory.getInstance().isCollected(notebook.getId())) {
             notebook.setPosition(200, 100);
             notebook.setSize(100, 100);
             stage.addActor(notebook);
         }
 
-        GameObject key = new GameObject("key", new Texture("images/key.jpg"));
+        GameObject key = new GameObject("key", new Texture("images/key.png"));
         if (!Inventory.getInstance().isCollected(key.getId())) {
             key.setPosition(400, 100);
             key.setSize(100, 100);
@@ -125,7 +127,7 @@ public class TestRoomState extends GameState {
             () -> {
                 JournalManager.getInstance().appendTextWithId("UnlockedDoor", "Now that the door has been opened I can finally exit this room");
                 Inventory.getInstance().removeItem("key");
-                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2, true));
+                screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2));
             });
 
         door.setPosition(

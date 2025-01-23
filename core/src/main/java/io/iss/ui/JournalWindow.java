@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.iss.dialogue.context.DialogueContext;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
+import io.iss.utils.JournalManager;
 
 public class JournalWindow {
     private Table journalTable;
@@ -75,7 +76,7 @@ public class JournalWindow {
 
         journalTable.add(scrollPane).expand().fill().pad(80).row();
 
-        scrollPane.layout(); // Assicura che lo ScrollPane calcoli correttamente il layout
+        scrollPane.layout();
         scrollPane.setScrollY(scrollPane.getMaxY());
         scrollPane.updateVisualScroll();
 

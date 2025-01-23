@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.iss.factory.StateType;
 import io.iss.screens.GameScreen;
 import io.iss.utils.FontManager;
 
@@ -11,6 +12,7 @@ public abstract class GameState {
     protected final GameScreen screen;
     protected Stage stage;
     protected Viewport viewport;
+    StateType type;
 
     public GameState(GameScreen screen) {
         this.screen = screen;
@@ -46,6 +48,11 @@ public abstract class GameState {
 
     protected FontManager getFontManager() {
         return FontManager.getInstance();
+    }
+
+
+    public StateType getType() {
+        return type;
     }
 
     public abstract void enter();

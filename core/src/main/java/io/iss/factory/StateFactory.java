@@ -15,10 +15,7 @@ public class StateFactory {
         this.screen = screen;
     }
 
-    public GameState createState(StateType type, boolean saveRoom) {
-        if(saveRoom) {
-            saveState(type);
-        }
+    public GameState createState(StateType type) {
         return switch (type) {
             case MENU -> new MenuState(screen);
             case TEST_ROOM -> new TestRoomState(screen);
@@ -26,12 +23,6 @@ public class StateFactory {
             case INTRO -> new IntroState(screen);
             case HELL_DIALOGUE -> new DialogueTest(screen);
         };
-    }
-
-    public void saveState(StateType type) {
-        Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
-        prefs.putString(STATE_KEY, type.name());
-        prefs.flush();
     }
 
     public StateType loadState() {
@@ -47,5 +38,11 @@ public class StateFactory {
         }
 
         return StateType.TEST_ROOM;
+    }
+
+    public void saveState(StateType type) {
+        Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
+        prefs.putString(STATE_KEY, type.name());
+        prefs.flush();
     }
 }

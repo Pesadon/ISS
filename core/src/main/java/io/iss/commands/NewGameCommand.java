@@ -3,7 +3,7 @@ package io.iss.commands;
 import io.iss.factory.StateType;
 import io.iss.screens.GameScreen;
 import io.iss.ui.Inventory;
-import io.iss.ui.JournalManager;
+import io.iss.utils.JournalManager;
 
 public class NewGameCommand implements MenuCommand {
     private final GameScreen screen;
@@ -16,6 +16,6 @@ public class NewGameCommand implements MenuCommand {
     public void execute() {
         Inventory.getInstance().init();
         JournalManager.getInstance().clean();
-        screen.setState(screen.getStateFactory().createState(StateType.INTRO, true));
+        screen.setState(screen.getStateFactory().createState(StateType.TEST_ROOM2));
     }
 }

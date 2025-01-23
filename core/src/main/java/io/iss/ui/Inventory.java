@@ -3,6 +3,7 @@ package io.iss.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import io.iss.objects.GameObject;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
@@ -131,26 +133,50 @@ public class Inventory {
         return inventoryBar;
     }
 
+
     public void save() {
-        Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
         Json json = new Json();
-        String jsonData = json.toJson(this);
-        System.out.println("Salvataggio JSON: " + jsonData);
-        prefs.putString(JSON_KEY, jsonData);
-        prefs.flush();
+
+        InventoryData inventoryData = new InventoryData();
+        inventoryData.items = new ArrayList<>();
+        for (GameObject item : items) {
+            inventoryData.items.add(item.getId());
+        }
+        inventoryData.collectedItems = new ArrayList<>(collectedItems);
+
+        String jsonData = json.toJson(inventoryData);
+
+        Preferences preferences = Gdx.app.getPreferences(PREFERENCES_NAME);
+        preferences.putString(JSON_KEY, jsonData);
+        preferences.flush();
     }
 
-    public static void load() {
-        Preferences prefs = Gdx.app.getPreferences(PREFERENCES_NAME);
-        String jsonString = prefs.getString(JSON_KEY, null);
-        System.out.println("Caricamento JSON: " + jsonString);
+    public void load() {
+        Preferences preferences = Gdx.app.getPreferences(PREFERENCES_NAME);
+        String jsonData = preferences.getString(JSON_KEY, null);
 
-        if (jsonString != null) {
+        if (jsonData != null) {
             Json json = new Json();
-            instance = json.fromJson(Inventory.class, jsonString);
-        } else {
-            instance = new Inventory();
-            System.err.println("Nessun JSON salvato trovato.");
+
+            InventoryData inventoryData = json.fromJson(InventoryData.class, jsonData);
+
+            items.clear();
+            for (String itemId : inventoryData.items) {
+                Texture texture = getTextureById(itemId);
+                items.add(new GameObject(itemId, texture));
+            }
+
+            collectedItems.clear();
+            collectedItems.addAll(inventoryData.collectedItems);
         }
+    }
+
+    private Texture getTextureById(String id) {
+        return new Texture("images/" + id + ".png");
+    }
+
+    private static class InventoryData {
+        public ArrayList<String> items;
+        public ArrayList<String> collectedItems;
     }
 }

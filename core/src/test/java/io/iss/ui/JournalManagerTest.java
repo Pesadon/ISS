@@ -1,5 +1,6 @@
 package io.iss.ui;
 
+import io.iss.utils.JournalManager;
 import org.junit.Before;
 import org.junit.Test;
 
