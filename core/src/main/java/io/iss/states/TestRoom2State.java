@@ -275,6 +275,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 pauseMenu.showPauseMenu(); // Show the pause menu when the button is clicked
+                isInteractionActive = !isInteractionActive;
             }
         });
 

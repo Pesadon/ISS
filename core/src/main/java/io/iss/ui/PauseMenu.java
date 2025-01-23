@@ -46,13 +46,6 @@ public class PauseMenu {
         Actor blockingLayer = new Actor();
         blockingLayer.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         blockingLayer.setName("blockingLayer"); // Add a name for easier removal
-        blockingLayer.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                // Consume all touch events outside the pause menu
-                return true;
-            }
-        });
 
         // Add the blocking layer to the stage
         stage.addActor(blockingLayer);
