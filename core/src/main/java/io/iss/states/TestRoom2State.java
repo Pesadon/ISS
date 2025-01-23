@@ -118,7 +118,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         if(Inventory.getInstance().isCollected("key") && Inventory.getInstance().getSelectedItem() != null && Inventory.getInstance().getSelectedItem().getId().equals("key")) {
             screen.setState(screen.getStateFactory().createState(StateType.MENU, false));
         } else {
-            JournalManager.getInstance().appendTextWithId("LockedDoor", "I've found a door, but it is locked, maybe I can find the key nearby");
+            JournalManager.getInstance().appendTextWithId("LockedDoor", "The door to my office is locked, but I don't remember locking it.\nI should start looking for the key. Where could it be?");
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
             dialogueContext.startScene(dialogueLoader.getScene("locked_door"), () -> {
                 dialogueContext.getDialogueUI().getDialogueBox().remove();
@@ -239,7 +239,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
             dialogueContext.startScene(dialogueLoader.getScene("mini_game_win"), () -> {
                 dialogueContext.getDialogueUI().getDialogueBox().remove();
-                JournalManager.getInstance().appendTextWithId("TestRoom2Dante", "Let’s go! Now I can use this key to open the door.");
+                JournalManager.getInstance().appendTextWithId("TestRoom2Dante", "Now that I have the key I'll finally be able to open the door");
                 Inventory.getInstance().addItem(new GameObject("key", new Texture("images/key.jpg")));
                 Inventory.getInstance().show();
             });
