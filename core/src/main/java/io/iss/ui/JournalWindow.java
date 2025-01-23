@@ -23,11 +23,13 @@ public class JournalWindow {
     private DialogueContext dialogueContext;
     private Stage stage;
     private GameScreen screen;
+    private Runnable runnable;
 
-    public JournalWindow(GameScreen screen, Stage stage, DialogueContext dialogueContext) {
+    public JournalWindow(GameScreen screen, Stage stage, DialogueContext dialogueContext, Runnable runnable) {
         this.screen = screen;
         this.stage = stage;
         this.dialogueContext = dialogueContext;
+        this.runnable = runnable;
     }
 
     public void showJournalWindow() {
@@ -37,13 +39,17 @@ public class JournalWindow {
         Actor blockingLayer = new Actor();
         blockingLayer.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         blockingLayer.setName("blockingLayer"); // Add a name for easier removal
+
+        /*
         blockingLayer.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 // Consume all touch events outside the pause menu
+
                 return true;
             }
         });
+         */
 
         // Add the blocking layer to the stage
         stage.addActor(blockingLayer);
@@ -131,7 +137,7 @@ public class JournalWindow {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                resumeGame();
+                runnable.run();
             }
         });
 

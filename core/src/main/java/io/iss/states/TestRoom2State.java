@@ -46,6 +46,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     private ShapeRenderer shapeRenderer;
     public boolean isJournalOpen;
     public boolean isComputerOpen;
+    private boolean isInteractionActive;
 
     public TestRoom2State(GameScreen screen) {
         super(screen);
@@ -60,8 +61,8 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
         initPauseButton();
 
-        journalWindow = new JournalWindow(screen, stage, dialogueContext);
-        initJournalButton();
+        journalWindow = new JournalWindow(screen, stage, dialogueContext, this::onJournalClick);
+        // initJournalButton();
 
         map = new TmxMapLoader().load("tilemap/office.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -101,6 +102,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
 
         isJournalOpen = false;
         isComputerOpen = false;
+        isInteractionActive = true;
     }
 
     public void onJournalClick() {
@@ -109,6 +111,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         } else {
             journalWindow.resumeGame();
         }
+        isInteractionActive = isJournalOpen;
         isJournalOpen = !isJournalOpen;
     }
 
@@ -201,13 +204,15 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        for (InteractiveArea area : interactiveAreas) {
-            area.setHovered(area.contains(mousePos.x, mousePos.y));
-            area.render(shapeRenderer);
-            area.checkClick(mousePos.x, mousePos.y);
+        if (isInteractionActive) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            for (InteractiveArea area : interactiveAreas) {
+                area.setHovered(area.contains(mousePos.x, mousePos.y));
+                area.render(shapeRenderer);
+                area.checkClick(mousePos.x, mousePos.y);
+            }
+            shapeRenderer.end();
         }
-        shapeRenderer.end();
 
         // Then update and draw the stage
         stage.act(delta);
@@ -298,7 +303,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         journalButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                journalWindow.showJournalWindow(); // Show the pause menu when the button is clicked
+                onJournalClick(); // Show the pause menu when the button is clicked
             }
         });
 

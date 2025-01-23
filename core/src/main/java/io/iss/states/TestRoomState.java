@@ -48,7 +48,7 @@ public class TestRoomState extends GameState {
         pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
         initPauseButton();
 
-        journalWindow = new JournalWindow(screen, stage, dialogueContext);
+        journalWindow = new JournalWindow(screen, stage, dialogueContext, () -> {});
         initJournalButton();
 
         doorImage = new Image(GameAssetManager.getInstance().get(GameAssetManager.DOOR_TEXTURE, Texture.class));
