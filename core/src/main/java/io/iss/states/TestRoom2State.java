@@ -46,7 +46,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     private ShapeRenderer shapeRenderer;
     public boolean isJournalOpen;
     public boolean isComputerOpen;
-    private boolean isInteractionActive;
+    public boolean isInteractionActive;
 
     public TestRoom2State(GameScreen screen) {
         super(screen);
@@ -58,7 +58,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
 
-        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
+        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext, this::enableActiveInteraction);
         initPauseButton();
 
         journalWindow = new JournalWindow(screen, stage, dialogueContext, this::onJournalClick);
@@ -103,6 +103,10 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         isJournalOpen = false;
         isComputerOpen = false;
         isInteractionActive = true;
+    }
+
+    public void enableActiveInteraction() {
+        this.isInteractionActive = true;
     }
 
     public void onJournalClick() {
@@ -275,7 +279,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 pauseMenu.showPauseMenu(); // Show the pause menu when the button is clicked
-                isInteractionActive = !isInteractionActive;
+                isInteractionActive = false;
             }
         });
 

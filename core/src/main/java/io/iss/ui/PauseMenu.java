@@ -30,13 +30,15 @@ public class PauseMenu {
     private GameScreen screen;
     private GameState state;
     private Buttons buttons;
+    private Runnable enableActiveInteraction;
 
-    public PauseMenu(GameScreen screen, GameState state, Stage stage, DialogueContext dialogueContext) {
+    public PauseMenu(GameScreen screen, GameState state, Stage stage, DialogueContext dialogueContext, Runnable runnable) {
         this.screen = screen;
         this.state = state;
         this.stage = stage;
         this.dialogueContext = dialogueContext;
         this.buttons = new Buttons();
+        this.enableActiveInteraction = runnable;
     }
 
     public void showPauseMenu() {
@@ -46,6 +48,12 @@ public class PauseMenu {
         Actor blockingLayer = new Actor();
         blockingLayer.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         blockingLayer.setName("blockingLayer"); // Add a name for easier removal
+        blockingLayer.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true; // Indica che l'evento è stato gestito
+            }
+        });
 
         // Add the blocking layer to the stage
         stage.addActor(blockingLayer);
@@ -101,6 +109,7 @@ public class PauseMenu {
             blockingLayer.remove();
         }
 
+        this.enableActiveInteraction.run();
         // Re-enable game input
         Gdx.input.setInputProcessor(stage);
     }

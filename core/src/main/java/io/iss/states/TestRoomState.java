@@ -45,7 +45,7 @@ public class TestRoomState extends GameState {
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
 
-        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
+        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext, () -> { });
         initPauseButton();
 
         journalWindow = new JournalWindow(screen, stage, dialogueContext, () -> {});

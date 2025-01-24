@@ -26,7 +26,7 @@ public class IntroState extends GameState {
 
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
-        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext);
+        pauseMenu = new PauseMenu(screen, this, stage, dialogueContext, () -> { });
     }
 
     @Override
@@ -82,7 +82,7 @@ public class IntroState extends GameState {
         pauseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                pauseMenu.showPauseMenu(); // Show the pause menu when the button is clicked
+            pauseMenu.showPauseMenu(); // Show the pause menu when the button is clicked
             }
         });
 
