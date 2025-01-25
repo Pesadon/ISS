@@ -13,7 +13,9 @@ public class ContinueGameCommand implements MenuCommand {
 
     @Override
     public void execute() {
+        Inventory.getInstance().clear();
         Inventory.getInstance().load();
+        Inventory.getInstance().show();
         JournalManager.load();
         screen.setState(screen.getStateFactory().createState(screen.getStateFactory().loadState()));
     }

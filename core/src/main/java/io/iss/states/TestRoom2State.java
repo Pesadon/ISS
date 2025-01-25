@@ -53,8 +53,6 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
 
         type = StateType.TEST_ROOM2;
 
-        JournalManager.getInstance().appendTextWithId("TestRoom2Enter", "Looks like I'm in my office, I should investigate to understand what happened");
-
         dialogueLoader = new DialogueLoader(GameAssetManager.DIALOGUES_JSON);
         dialogueContext = new DialogueContext(screen, stage);
 
@@ -62,7 +60,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         initPauseButton();
 
         journalWindow = new JournalWindow(screen, stage, dialogueContext, this::onJournalClick);
-        // initJournalButton();
+        initJournalButton();
 
         map = new TmxMapLoader().load("tilemap/office.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -139,9 +137,11 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
     }
 
     public void onComputerClick() {
-        if (!isComputerOpen) {
-            isComputerOpen = true;
-            miniGame.start();
+        if(!Inventory.getInstance().isCollected("key")) {
+            if (!isComputerOpen) {
+                isComputerOpen = true;
+                miniGame.start();
+            }
         }
     }
 
@@ -150,46 +150,16 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
         Table table = new Table();
         table.setFillParent(true);
 
-        stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
-        // TODO: why do we need this first call of dialogue scene to make the actual dialogue work?
-        // dialogueContext.startScene(dialogueLoader.getScene("its_dante"));
-
-        /*
-        GameObject littleDante = new GameObject("dante", new Texture("images/Dante.jpg"), () -> {
-            Inventory.getInstance().hide();
+        if(!JournalManager.getInstance().getAddedIds().contains("TestRoom2Enter")) {
+            JournalManager.getInstance().appendTextWithId("TestRoom2Enter", "Looks like I'm in my office, I should investigate to understand what happened");
             stage.addActor(dialogueContext.getDialogueUI().getDialogueBox());
-            dialogueContext.startScene(dialogueLoader.getScene("its_dante"), () -> {
-                dialogueContext.getDialogueUI().getDialogueBox().remove();
-                JournalManager.getInstance().appendTextWithId("TestRoom2Dante", "I've found Dante, but I'm not sure of what to do with it");
-                Inventory.getInstance().show();
-            });
-        });
-
-        if (!Inventory.getInstance().isCollected(littleDante.getId())) {
-            littleDante.setPosition(600, 100);
-            littleDante.setSize(100, 100);
-            stage.addActor(littleDante);
+            dialogueContext.startScene(dialogueLoader.getScene("office_scene"));
         }
-        */
-        dialogueContext.startScene(dialogueLoader.getScene("office_scene"));
 
         stage.addActor(Inventory.getInstance().getInventoryBar());
 
-        //TODO: this kind of code should be put in a superclass for stages in which the inventory is used
-//        stage.addListener(new InputListener() {
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                Actor target = event.getTarget();
-//
-//                if (!(target instanceof InteractiveObject) && !(target instanceof Table)) {
-//                    Inventory.getInstance().deselectItem();
-//                    Inventory.getInstance().removeGuiSelection();
-//                }
-//                return true;
-//            }
-//        });
+        Inventory.getInstance().show();
 
-        // Set up input processing
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -247,7 +217,7 @@ public class TestRoom2State extends GameState implements ColorMiniGame.MiniGameL
             dialogueContext.startScene(dialogueLoader.getScene("mini_game_win"), () -> {
                 dialogueContext.getDialogueUI().getDialogueBox().remove();
                 JournalManager.getInstance().appendTextWithId("TestRoom2Dante", "Now that I have the key I'll finally be able to open the door");
-                Inventory.getInstance().addItem(new GameObject("key", new Texture("images/key.jpg")));
+                Inventory.getInstance().addItem(new GameObject("key", new Texture("images/key.png")));
                 Inventory.getInstance().show();
             });
         } else {

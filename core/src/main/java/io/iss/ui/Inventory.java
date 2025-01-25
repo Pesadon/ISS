@@ -163,7 +163,22 @@ public class Inventory {
             items.clear();
             for (String itemId : inventoryData.items) {
                 Texture texture = getTextureById(itemId);
-                items.add(new GameObject(itemId, texture));
+                GameObject object = new GameObject(itemId, texture);
+                object.setVisible(true);
+                items.add(object);
+
+                Image itemImage = new Image(new TextureRegionDrawable(new TextureRegion(object.getTexture())));
+
+                itemImage.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        selectItem(object);
+                        removeGuiSelection();
+                        itemImage.setColor(Color.YELLOW);
+                    }
+                });
+
+                inventoryBar.add(itemImage).size(80f, 80f).pad(20);
             }
 
             collectedItems.clear();
