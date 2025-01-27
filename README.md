@@ -1,10 +1,8 @@
-**(This is definitive guys, if you don't like something I don't care)**
-
-# Rewind Detective: A Time-Bending Mystery Game 
+# Memento Paradox
 
 ## Overview
 
-**Rewind Detective** is an engaging story-driven mystery game that combines multiple gameplay elements, including visual novel-style conversations, escape room puzzles, and stealth mechanics. The player controls a detective who discovers the ability to rewind time after his mysterious death. Using this power, he unravels the mystery behind his own demise, his mother’s disappearance, and a sinister government conspiracy.
+**Memento Paradox** is an engaging story-driven mystery game that combines multiple gameplay elements, including visual novel-style conversations, escape room puzzles, and stealth mechanics. The player controls a detective who discovers the ability to rewind time after his mysterious death. Using this power, he unravels the mystery behind his own demise, his mother’s disappearance, and a sinister government conspiracy.
 
 ---
 
